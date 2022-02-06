@@ -1,0 +1,62 @@
+﻿ <!--https://stackoverflow.com/questions/22489400/creating-a-wpf-window-that-allows-zooming-and-panning/22489485#22489485
+     https://stackoverflow.com/questions/34422337/wpf-zoom-control-->
+<Window x:Class="MazeGen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MazeGen" xmlns:entities="clr-namespace:MazeGen.Entities"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="640" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+            </Grid.RowDefinitions>
+
+            <!-- This ScrollViewer enables the panning -->
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <!-- This StackPanel is the container for the zoomable/pannable content. -->
+                <!-- Any container control (StackPanel, DockPanel, Grid, etc) may be used here. -->
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <!-- This ScaleTransform implements the zooming and is bound the Value of the ZoomSlider -->
+                    <StackPanel.LayoutTransform>
+                        <ScaleTransform ScaleX="{Binding ElementName=ZoomSlider, Path=Value}" ScaleY="{Binding ElementName=ZoomSlider, Path=Value}" />
+                    </StackPanel.LayoutTransform>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" x:Name="XVal"/>
+                            <Label Grid.Row="1" x:Name="YVal"/>
+                            <Label Grid.Row="2" x:Name="CellXVal"/>
+                            <Label Grid.Row="3" x:Name="CellYVal"/>
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid x:Name="MazeArea"/>
+                            <Canvas>
+                                <entities:Player x:Name="Player"/>
+                            </Canvas>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+            <!-- This Slider controls the zoom level -->
+            <!--<Slider x:Name="ZoomSlider" Orientation="Horizontal" Grid.Row="1" Minimum="0.0" Maximum="8.0" LargeChange="0.25" SmallChange="0.01"  Value="1.0" />-->
+        </Grid>
+    </Grid>
+</Window>

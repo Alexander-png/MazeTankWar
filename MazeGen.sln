@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeGen", "MazeGen\MazeGen.csproj", "{CAC88BDC-6EF7-4115-A3E9-B2DFF3F1887D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAC88BDC-6EF7-4115-A3E9-B2DFF3F1887D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC88BDC-6EF7-4115-A3E9-B2DFF3F1887D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC88BDC-6EF7-4115-A3E9-B2DFF3F1887D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC88BDC-6EF7-4115-A3E9-B2DFF3F1887D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0D195F7-1999-4AB1-A6AA-6FA07FFD2E04}
+	EndGlobalSection
+EndGlobal
