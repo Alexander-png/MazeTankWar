@@ -1,5 +1,0 @@
-﻿TODO:
-Check collision in player
-Player must know in which cell it it
-Bullets
-pick ups
