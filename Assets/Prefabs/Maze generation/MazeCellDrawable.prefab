@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 941610642670848889}
   - component: {fileID: 941610642670848890}
-  - component: {fileID: 941610642670848868}
   - component: {fileID: 941610642670848891}
   m_Layer: 0
   m_Name: RightWall
@@ -86,27 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &941610642670848868
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941610642670848888}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &941610642670848891
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -249,7 +227,6 @@ GameObject:
   m_Component:
   - component: {fileID: 941610643976061371}
   - component: {fileID: 941610643976061348}
-  - component: {fileID: 941610643976061350}
   - component: {fileID: 941610643976061349}
   m_Layer: 0
   m_Name: LeftWall
@@ -325,27 +302,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &941610643976061350
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941610643976061370}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &941610643976061349
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -382,7 +338,6 @@ GameObject:
   m_Component:
   - component: {fileID: 941610644114432425}
   - component: {fileID: 941610644114432426}
-  - component: {fileID: 941610644114432340}
   - component: {fileID: 941610644114432427}
   m_Layer: 0
   m_Name: BottomWall
@@ -458,27 +413,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &941610644114432340
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941610644114432424}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &941610644114432427
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -515,7 +449,6 @@ GameObject:
   m_Component:
   - component: {fileID: 941610644315997347}
   - component: {fileID: 941610644315997356}
-  - component: {fileID: 941610644315997358}
   - component: {fileID: 941610644315997357}
   m_Layer: 0
   m_Name: TopWall
@@ -591,27 +524,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &941610644315997358
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941610644315997346}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &941610644315997357
 BoxCollider2D:
   m_ObjectHideFlags: 0

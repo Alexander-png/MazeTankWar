@@ -12,15 +12,20 @@ namespace MazeWar.Base
         private Generator MazeGenerator;
         [SerializeField]
         private Camera Camera;
+        [SerializeField]
+        private GameObject Player;
+
+
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                //if (MazeHead != null)
-                //    ClearMaze();
-                //MazeHead = MazeGenerator.GenerateMaze();
-                //CenterCameraAndZoom();
+                if (MazeHead != null)
+                    ClearMaze();
+                MazeHead = MazeGenerator.GenerateMaze();
+                CenterCameraAndZoom();
+                MovePlayerToRandomCell();
             }
         }
 
@@ -65,6 +70,17 @@ namespace MazeWar.Base
             // but not on top left corner.
             float cellCenterToEdgeRadius = MazeGenerator.CellSize / 2;
             Camera.transform.position = new Vector3(newCameraX - cellCenterToEdgeRadius, newCameraY + cellCenterToEdgeRadius, -Mathf.Max(cellsInRow, cellsInCol) * MazeGenerator.CellSize);
+        }
+
+        private void MovePlayerToRandomCell()
+        {
+            int randX = Random.Range(0, MazeGenerator.LastCellCountInRow);
+            int randY = Random.Range(0, MazeGenerator.LastCellCountInColumn);
+            MazeCellData cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
+
+            Player.transform.position = new Vector3(cell.ThisCell.transform.position.x, cell.ThisCell.transform.position.y, MazeGenerator.HeadCellPosition.z);
+            //int randRotation = Random.Range(0, 360);
+            //Player.transform.rotation = new Quaternion();// randRotation;
         }
     }
 }
