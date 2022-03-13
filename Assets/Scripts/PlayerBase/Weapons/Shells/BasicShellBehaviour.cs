@@ -31,6 +31,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
         {
             if (Encounting)
                 yield break;
+
             Encounting = true;
             yield return new WaitForSeconds(seconds);
             DoActionsAndDestroySelf(false);
@@ -42,7 +43,6 @@ namespace MazeWar.PlayerBase.Weapons.Shells
             {
                 collision.gameObject.SetActive(false);
                 DoActionsAndDestroySelf(true);
-                Debug.LogWarning("Player destroyed");
             }
         }
 

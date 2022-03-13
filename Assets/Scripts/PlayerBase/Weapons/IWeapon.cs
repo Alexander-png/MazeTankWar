@@ -1,5 +1,4 @@
-﻿//https://habr.com/ru/post/421523/
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MazeWar.PlayerBase.Weapons
 {
@@ -12,6 +11,7 @@ namespace MazeWar.PlayerBase.Weapons
         public void Shoot();
     }
 
+    //https://habr.com/ru/post/421523/
     //[CreateAssetMenu(fileName = "New tank weapon", menuName = "Tank weapon", order = 51)]
     //public class Weapon : ScriptableObject
     //{

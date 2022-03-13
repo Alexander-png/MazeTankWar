@@ -13,11 +13,9 @@ namespace MazeWar.Base
         [SerializeField]
         private Camera Camera;
         [SerializeField]
-        private GameObject Player;
+        private GameObject[] Players;
 
-
-
-        void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -25,7 +23,7 @@ namespace MazeWar.Base
                     ClearMaze();
                 MazeHead = MazeGenerator.GenerateMaze();
                 CenterCameraAndZoom();
-                MovePlayerToRandomCell();
+                MovePlayersToRandomCell();
             }
         }
 
@@ -72,15 +70,23 @@ namespace MazeWar.Base
             Camera.transform.position = new Vector3(newCameraX - cellCenterToEdgeRadius, newCameraY + cellCenterToEdgeRadius, -Mathf.Max(cellsInRow, cellsInCol) * MazeGenerator.CellSize);
         }
 
-        private void MovePlayerToRandomCell()
+        private void MovePlayersToRandomCell()
         {
-            int randX = Random.Range(0, MazeGenerator.LastCellCountInRow);
-            int randY = Random.Range(0, MazeGenerator.LastCellCountInColumn);
-            MazeCellData cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
-
-            Player.transform.position = new Vector3(cell.ThisCell.transform.position.x, cell.ThisCell.transform.position.y, MazeGenerator.HeadCellPosition.z);
-            //int randRotation = Random.Range(0, 360);
-            //Player.transform.rotation = new Quaternion();// randRotation;
+            int randX;
+            int randY;
+            MazeCellData cell;
+            for (int i = 0; i < Players.Length; i++)
+            {
+                if (Players[i] != null)
+                {
+                    randX = Random.Range(0, MazeGenerator.LastCellCountInRow);
+                    randY = Random.Range(0, MazeGenerator.LastCellCountInColumn);
+                    cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
+                    Players[i].transform.position = cell.ThisCell.transform.position;
+                    Players[i].transform.Rotate(new Vector3(0, 0, Random.Range(0, 361)));
+                    Players[i].SetActive(true);
+                }
+            }
         }
     }
 }
