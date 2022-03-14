@@ -54,7 +54,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
             }
 
             OnShellPreDestroy?.Invoke(this, new ShellPreDestroyEventArgs(AnimationTime));
-            StopAllCoroutines();
+            StopCoroutine(DestroySelfDelay(LifeTime));
             OnShellPreDestroy = null;
             Destroy(gameObject);
         }

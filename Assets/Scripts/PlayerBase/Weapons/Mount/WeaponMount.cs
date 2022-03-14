@@ -12,8 +12,6 @@ namespace MazeWar.PlayerBase.Weapons.Mount
         [SerializeField]
         private WeaponTypes DefaultWeapon;
         [SerializeField]
-        private Observer Observer;
-        [SerializeField]
         private GameObject[] Weapons;
 
         private void Start()

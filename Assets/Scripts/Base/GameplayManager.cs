@@ -1,11 +1,16 @@
 using MazeWar.MazeComponents;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MazeWar.Base
 {
-    public class Observer : MonoBehaviour
+    public class GameplayManager : MonoBehaviour
     {
+        // No use at this moment
+        private GlobalManager GlobalManager;
+
+        private bool InGame = false;
         private MazeCellData MazeHead;
 
         [SerializeField]
@@ -15,16 +20,59 @@ namespace MazeWar.Base
         [SerializeField]
         private GameObject[] Players;
 
+        public float RoundRestartTime = 3f;
+
+        private int _PlayersAliveCount;
+        public int PlayersAliveCount
+        {
+            get => _PlayersAliveCount;
+            private set
+            {
+                _PlayersAliveCount = value;
+                if (InGame)
+                {
+                    if (_PlayersAliveCount <= 1)
+                    {
+                        StopCoroutine(RestartRoundDelay(RoundRestartTime));
+                        StartCoroutine(RestartRoundDelay(RoundRestartTime));
+                    }
+                }
+            }
+        }
+
         private void Update()
         {
+            // Todo: remove from update
             if (Input.GetKeyDown(KeyCode.G))
+                RestartRound();
+        }
+
+        private IEnumerator RestartRoundDelay(float delay)
+        {
+            WaitForEndOfFrame wait = new WaitForEndOfFrame();
+            while (delay > 0)
             {
-                if (MazeHead != null)
-                    ClearMaze();
-                MazeHead = MazeGenerator.GenerateMaze();
-                CenterCameraAndZoom();
-                MovePlayersToRandomCell();
+                delay -= Time.deltaTime;
+                yield return wait;
             }
+            RestartRound();
+        }
+
+        private void RestartRound()
+        {
+            InGame = false;
+            if (MazeHead != null)
+                ClearMaze();
+            MazeHead = MazeGenerator.GenerateMaze();
+            CenterCameraAndZoom();
+            MovePlayersToRandomCell();
+            InGame = true;
+        }
+
+
+        public void OnPlayerKilled()
+        {
+            PlayersAliveCount -= 1;
         }
 
         private void ClearMaze()
@@ -85,6 +133,7 @@ namespace MazeWar.Base
                     Players[i].transform.position = cell.ThisCell.transform.position;
                     Players[i].transform.Rotate(new Vector3(0, 0, Random.Range(0, 361)));
                     Players[i].SetActive(true);
+                    PlayersAliveCount += 1;
                 }
             }
         }

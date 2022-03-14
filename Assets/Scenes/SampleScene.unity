@@ -442,7 +442,6 @@ MonoBehaviour:
   LeftWall: {fileID: 73274985}
   RightWall: {fileID: 1821368620}
   BottomWall: {fileID: 532894908}
-  ThisTransform: {fileID: 20829419}
 --- !u!212 &20829421
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1745,7 +1744,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1384232580}
   RightWall: {fileID: 922252153}
   BottomWall: {fileID: 1379995060}
-  ThisTransform: {fileID: 142028238}
 --- !u!212 &142028240
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1851,7 +1849,6 @@ MonoBehaviour:
   LeftWall: {fileID: 780800202}
   RightWall: {fileID: 909795605}
   BottomWall: {fileID: 1805236213}
-  ThisTransform: {fileID: 143273202}
 --- !u!212 &143273204
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1957,7 +1954,6 @@ MonoBehaviour:
   LeftWall: {fileID: 543515426}
   RightWall: {fileID: 908985372}
   BottomWall: {fileID: 2020218757}
-  ThisTransform: {fileID: 144412309}
 --- !u!212 &144412311
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2143,6 +2139,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &174491623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 174491625}
+  - component: {fileID: 174491624}
+  m_Layer: 0
+  m_Name: GlobalManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &174491624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174491623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453070b5fb8e0af4c8724928ef495d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameplayManager: {fileID: 0}
+--- !u!4 &174491625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174491623}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220788289
 GameObject:
   m_ObjectHideFlags: 0
@@ -2329,7 +2370,6 @@ MonoBehaviour:
   LeftWall: {fileID: 490611683}
   RightWall: {fileID: 2101563911}
   BottomWall: {fileID: 47337709}
-  ThisTransform: {fileID: 234577298}
 --- !u!212 &234577300
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2435,7 +2475,6 @@ MonoBehaviour:
   LeftWall: {fileID: 890671557}
   RightWall: {fileID: 79617498}
   BottomWall: {fileID: 776120488}
-  ThisTransform: {fileID: 237664296}
 --- !u!212 &237664298
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2674,7 +2713,6 @@ MonoBehaviour:
   LeftWall: {fileID: 513472880}
   RightWall: {fileID: 891021510}
   BottomWall: {fileID: 1920755115}
-  ThisTransform: {fileID: 257594934}
 --- !u!212 &257594936
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3040,7 +3078,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultWeapon: 0
-  Observer: {fileID: 2061499414}
   Weapons:
   - {fileID: 2003718995}
 --- !u!1 &277733666
@@ -3096,7 +3133,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1319635732}
   RightWall: {fileID: 1358740376}
   BottomWall: {fileID: 956088571}
-  ThisTransform: {fileID: 277733667}
 --- !u!212 &277733669
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3867,7 +3903,6 @@ MonoBehaviour:
   LeftWall: {fileID: 714348573}
   RightWall: {fileID: 555626017}
   BottomWall: {fileID: 1886918768}
-  ThisTransform: {fileID: 446643880}
 --- !u!212 &446643882
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4855,7 +4890,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1660029717}
   RightWall: {fileID: 986176733}
   BottomWall: {fileID: 1323419079}
-  ThisTransform: {fileID: 578626930}
 --- !u!212 &578626932
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5499,7 +5533,7 @@ Transform:
   - {fileID: 2051294526}
   - {fileID: 1381585282}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &700450963
 GameObject:
@@ -5554,7 +5588,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1889391597}
   RightWall: {fileID: 266778562}
   BottomWall: {fileID: 873312572}
-  ThisTransform: {fileID: 700450964}
 --- !u!212 &700450966
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5660,7 +5693,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1097043744}
   RightWall: {fileID: 250854015}
   BottomWall: {fileID: 1333064392}
-  ThisTransform: {fileID: 703190903}
 --- !u!212 &703190905
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6564,7 +6596,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1033214719}
   RightWall: {fileID: 1713718064}
   BottomWall: {fileID: 1166730081}
-  ThisTransform: {fileID: 798418888}
 --- !u!212 &798418890
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7069,7 +7100,6 @@ MonoBehaviour:
   LeftWall: {fileID: 674984859}
   RightWall: {fileID: 1093323290}
   BottomWall: {fileID: 1708101856}
-  ThisTransform: {fileID: 829075181}
 --- !u!212 &829075183
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7175,7 +7205,6 @@ MonoBehaviour:
   LeftWall: {fileID: 969734820}
   RightWall: {fileID: 748872815}
   BottomWall: {fileID: 1519013043}
-  ThisTransform: {fileID: 833341179}
 --- !u!212 &833341181
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7547,7 +7576,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1236149430}
   RightWall: {fileID: 643509779}
   BottomWall: {fileID: 1096259835}
-  ThisTransform: {fileID: 876866873}
 --- !u!212 &876866875
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9781,7 +9809,6 @@ MonoBehaviour:
   LeftWall: {fileID: 750182935}
   RightWall: {fileID: 1752211730}
   BottomWall: {fileID: 1226084016}
-  ThisTransform: {fileID: 1102747712}
 --- !u!212 &1102747714
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10286,7 +10313,6 @@ MonoBehaviour:
   LeftWall: {fileID: 711605762}
   RightWall: {fileID: 1684522753}
   BottomWall: {fileID: 1851816176}
-  ThisTransform: {fileID: 1201697864}
 --- !u!212 &1201697866
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11323,7 +11349,6 @@ MonoBehaviour:
   LeftWall: {fileID: 850090613}
   RightWall: {fileID: 1701549212}
   BottomWall: {fileID: 1855077343}
-  ThisTransform: {fileID: 1293468477}
 --- !u!212 &1293468479
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12227,7 +12252,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1757468853}
   RightWall: {fileID: 2107789486}
   BottomWall: {fileID: 1096773531}
-  ThisTransform: {fileID: 1381585282}
 --- !u!212 &1381585284
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12599,7 +12623,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1226692096}
   RightWall: {fileID: 33570204}
   BottomWall: {fileID: 1954361687}
-  ThisTransform: {fileID: 1417130494}
 --- !u!212 &1417130496
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13104,7 +13127,6 @@ MonoBehaviour:
   LeftWall: {fileID: 821959177}
   RightWall: {fileID: 117001340}
   BottomWall: {fileID: 2105716081}
-  ThisTransform: {fileID: 1484771395}
 --- !u!212 &1484771397
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14341,7 +14363,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1946386272}
   RightWall: {fileID: 460388066}
   BottomWall: {fileID: 2123181848}
-  ThisTransform: {fileID: 1675721496}
 --- !u!212 &1675721498
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14447,7 +14468,6 @@ MonoBehaviour:
   LeftWall: {fileID: 2140844717}
   RightWall: {fileID: 1505854487}
   BottomWall: {fileID: 1442432774}
-  ThisTransform: {fileID: 1681955760}
 --- !u!212 &1681955762
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15617,7 +15637,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1647294453}
   RightWall: {fileID: 1258470038}
   BottomWall: {fileID: 1870457849}
-  ThisTransform: {fileID: 1778695019}
 --- !u!212 &1778695021
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15833,7 +15852,7 @@ Transform:
   m_Children:
   - {fileID: 2110003636}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1821368620
 GameObject:
@@ -16021,7 +16040,6 @@ MonoBehaviour:
   LeftWall: {fileID: 657751809}
   RightWall: {fileID: 2122332548}
   BottomWall: {fileID: 1696961128}
-  ThisTransform: {fileID: 1850416990}
 --- !u!212 &1850416992
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16260,7 +16278,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1880696326}
   RightWall: {fileID: 388764146}
   BottomWall: {fileID: 1507390486}
-  ThisTransform: {fileID: 1853822040}
 --- !u!212 &1853822042
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17297,7 +17314,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1487289359}
   RightWall: {fileID: 84973514}
   BottomWall: {fileID: 1982588197}
-  ThisTransform: {fileID: 1896741108}
 --- !u!212 &1896741110
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18579,7 +18595,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1871200034}
   RightWall: {fileID: 1001650670}
   BottomWall: {fileID: 1980499102}
-  ThisTransform: {fileID: 2033647290}
 --- !u!212 &2033647292
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18849,7 +18864,6 @@ MonoBehaviour:
   LeftWall: {fileID: 1640143468}
   RightWall: {fileID: 2039417221}
   BottomWall: {fileID: 2016179751}
-  ThisTransform: {fileID: 2051294526}
 --- !u!212 &2051294528
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18911,45 +18925,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2061499415}
-  - component: {fileID: 2061499414}
+  - component: {fileID: 2061499416}
   m_Layer: 0
-  m_Name: Observer
+  m_Name: GameplayManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2061499414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061499413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 099c97e40f9e7c349918ad671a3fb305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MazeGenerator: {fileID: 2031550450}
-  Camera: {fileID: 519420031}
-  Players:
-  - {fileID: 2110003634}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &2061499415
 Transform:
   m_ObjectHideFlags: 0
@@ -18963,8 +18946,25 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2061499416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061499413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f1e5938cb036b4e8fad506bc14b5d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MazeGenerator: {fileID: 2031550450}
+  Camera: {fileID: 519420031}
+  Players:
+  - {fileID: 2110003634}
+  RoundRestartTime: 3
 --- !u!1 &2101563911
 GameObject:
   m_ObjectHideFlags: 0
@@ -19377,6 +19377,7 @@ GameObject:
   - component: {fileID: 2110003638}
   - component: {fileID: 2110003637}
   - component: {fileID: 2110003639}
+  - component: {fileID: 2110003640}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -19511,11 +19512,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae7049874dbb7594299a31d492fef3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Observer: {fileID: 2061499414}
   PlayerBody: {fileID: 2110003638}
   RotationSpeed: 11000
   ForwardSpeed: 180
   BackwardSpeed: -90
+--- !u!114 &2110003640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110003634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb03d9fa91f4f24ab7ad9a0acb49157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameplayManager: {fileID: 2061499416}
 --- !u!1 &2122332548
 GameObject:
   m_ObjectHideFlags: 0
@@ -19933,10 +19946,10 @@ PrefabInstance:
     - target: {fileID: 4702000432913955086, guid: 38ebfd9c84872c54cbea21c79b5b9e63, type: 3}
       propertyPath: Observer
       value: 
-      objectReference: {fileID: 2061499414}
+      objectReference: {fileID: 0}
     - target: {fileID: 4702000432913955087, guid: 38ebfd9c84872c54cbea21c79b5b9e63, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4702000432913955087, guid: 38ebfd9c84872c54cbea21c79b5b9e63, type: 3}
       propertyPath: m_LocalPosition.x

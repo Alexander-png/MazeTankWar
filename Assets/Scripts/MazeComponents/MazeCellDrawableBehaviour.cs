@@ -175,14 +175,12 @@ namespace MazeWar.MazeComponents
         private GameObject RightWall;
         [SerializeField]
         private GameObject BottomWall;
-        [SerializeField]
-        private Transform ThisTransform;
 
         public MazeCellData Data { get; private set; }
 
         public void SetCellData(MazeCellData data, float cellSize)
         {
-            ThisTransform.localScale = new Vector3(cellSize, cellSize, cellSize);
+            gameObject.transform.localScale = new Vector3(cellSize, cellSize, cellSize);
             SetCellData(data);
         }
 

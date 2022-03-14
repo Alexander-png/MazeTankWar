@@ -7,9 +7,6 @@ namespace MazeWar.MazeComponents
     public class Generator : MonoBehaviour
     {
         [SerializeField]
-        private Observer Observer;
-
-        [SerializeField]
         private int MaxMazeXSize;
         [SerializeField]
         private int MinMazeXSize;
