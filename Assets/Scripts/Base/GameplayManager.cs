@@ -40,11 +40,13 @@ namespace MazeWar.Base
             }
         }
 
-        private void Update()
+        // Todo: shells must ignore collisions with other shells
+
+
+        // Todo: remove on release
+        private void OnGenerateMazeDebug()
         {
-            // Todo: remove from update
-            if (Input.GetKeyDown(KeyCode.G))
-                RestartRound();
+            RestartRound();
         }
 
         private IEnumerator RestartRoundDelay(float delay)
@@ -58,9 +60,22 @@ namespace MazeWar.Base
             RestartRound();
         }
 
+        private void IncreaseScoreToAlivePlayers()
+        {
+            for (int i = 0; i < Players.Length; i++)
+            {
+                if (Players[i].activeInHierarchy)
+                {
+                    // Todo: add score to him
+                }
+            }
+        }
+
         private void RestartRound()
         {
             InGame = false;
+            IncreaseScoreToAlivePlayers();
+            PlayersAliveCount = 0;
             if (MazeHead != null)
                 ClearMaze();
             MazeHead = MazeGenerator.GenerateMaze();
@@ -68,7 +83,6 @@ namespace MazeWar.Base
             MovePlayersToRandomCell();
             InGame = true;
         }
-
 
         public void OnPlayerKilled()
         {

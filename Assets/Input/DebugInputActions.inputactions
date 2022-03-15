@@ -1,0 +1,34 @@
+{
+    "name": "DebugInputActions",
+    "maps": [
+        {
+            "name": "Generator",
+            "id": "d13ecc8b-4535-4975-bab8-9847947ef42e",
+            "actions": [
+                {
+                    "name": "GenerateMazeDebug",
+                    "type": "Button",
+                    "id": "37649ead-70b8-43b7-a821-5035e525a9ee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5c6b1f00-83b8-4496-8799-587348be521a",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GenerateMazeDebug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

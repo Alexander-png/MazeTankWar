@@ -1,6 +1,7 @@
 using MazeWar.Base;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MazeWar.PlayerBase.Weapons.Mount
 {
@@ -8,6 +9,7 @@ namespace MazeWar.PlayerBase.Weapons.Mount
     {
         private Dictionary<WeaponTypes, IWeapon> WeaponDict = new Dictionary<WeaponTypes, IWeapon>();
         private IWeapon CurrentWeapon;
+        private bool ShootButtonPressed;
 
         [SerializeField]
         private WeaponTypes DefaultWeapon;
@@ -24,6 +26,11 @@ namespace MazeWar.PlayerBase.Weapons.Mount
             OnRoundStarted();
         }
 
+        private void OnEnable()
+        {
+            ShootButtonPressed = false;
+        }
+
         public void OnRoundStarted()
         {
             CurrentWeapon = WeaponDict[DefaultWeapon];
@@ -32,13 +39,18 @@ namespace MazeWar.PlayerBase.Weapons.Mount
 
         private void FixedUpdate()
         {
-            ShootLogic();
+            if (ShootButtonPressed)
+                ShootLogic();
+        }
+
+        private void OnShoot(InputValue input)
+        {
+            ShootButtonPressed = input.isPressed;
         }
 
         private void ShootLogic()
         {
-            if (Input.GetAxis("Fire1") != 0)
-                CurrentWeapon.Shoot();
+            CurrentWeapon.Shoot();
         }
     }
 }

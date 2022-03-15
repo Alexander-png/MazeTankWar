@@ -1,5 +1,5 @@
-using MazeWar.Base;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MazeWar.PlayerBase.Movement
 {
@@ -17,6 +17,15 @@ namespace MazeWar.PlayerBase.Movement
         [SerializeField]
         private float BackwardSpeed;
 
+        private float VerticalAxis = 0;
+        private float HorizontalAxis = 0;
+
+        private void OnEnable()
+        {
+            VerticalAxis = 0;
+            HorizontalAxis = 0;
+        }
+
         private void FixedUpdate()
         {
             MovementLogic();
@@ -24,8 +33,8 @@ namespace MazeWar.PlayerBase.Movement
 
         private void MovementLogic()
         {
-            float verticalAxisVal = Input.GetAxisRaw("Vertical");
-            float horizontalAxisVal = Input.GetAxisRaw("Horizontal");
+            float verticalAxisVal = VerticalAxis;
+            float horizontalAxisVal = HorizontalAxis;
 
             // Rotating body
             PlayerBody.angularVelocity = -RotationSpeed * horizontalAxisVal * Time.fixedDeltaTime;
@@ -40,5 +49,19 @@ namespace MazeWar.PlayerBase.Movement
             float bodyRotationAsRadian = PlayerBody.rotation * Mathf.Deg2Rad;
             PlayerBody.velocity = new Vector2(Mathf.Cos(bodyRotationAsRadian) * currentSpeed, Mathf.Sin(bodyRotationAsRadian) * currentSpeed);
         }
+
+        #region Input logic
+        // Using Axis vals because listening input action in Dynamic update, but
+        // moving physical body in FixedUpdate.
+        public void OnMove(InputValue input)
+        {
+            VerticalAxis = input.Get<float>();
+        }
+
+        public void OnTurn(InputValue input)
+        {
+            HorizontalAxis = input.Get<float>();
+        }
+        #endregion
     }
 }

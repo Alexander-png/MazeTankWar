@@ -12,6 +12,7 @@ namespace MazeWar.PlayerBase.Weapons
     }
 
     //https://habr.com/ru/post/421523/
+    //https://pavcreations.com/equipment-system-for-an-rpg-unity-game/
     //[CreateAssetMenu(fileName = "New tank weapon", menuName = "Tank weapon", order = 51)]
     //public class Weapon : ScriptableObject
     //{

@@ -15,5 +15,3 @@ namespace MazeWar.PlayerBase.Observer
         }
     }
 }
-
-
