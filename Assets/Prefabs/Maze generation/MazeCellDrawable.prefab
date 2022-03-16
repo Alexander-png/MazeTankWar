@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 941610642670848889}
   - component: {fileID: 941610642670848890}
   - component: {fileID: 941610642670848891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,7 +216,6 @@ MonoBehaviour:
   LeftWall: {fileID: 941610643976061370}
   RightWall: {fileID: 941610642670848888}
   BottomWall: {fileID: 941610644114432424}
-  ThisTransform: {fileID: 941610643314441074}
 --- !u!1 &941610643976061370
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,9 +227,9 @@ GameObject:
   - component: {fileID: 941610643976061371}
   - component: {fileID: 941610643976061348}
   - component: {fileID: 941610643976061349}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,9 +338,9 @@ GameObject:
   - component: {fileID: 941610644114432425}
   - component: {fileID: 941610644114432426}
   - component: {fileID: 941610644114432427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BottomWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -450,9 +449,9 @@ GameObject:
   - component: {fileID: 941610644315997347}
   - component: {fileID: 941610644315997356}
   - component: {fileID: 941610644315997357}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TopWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -6,7 +6,7 @@ namespace MazeWar.PlayerBase.Collision
     {
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.name.Contains("Shell"))
+            if (collision.gameObject.tag == "Shell")
             {
                 //collision
             }

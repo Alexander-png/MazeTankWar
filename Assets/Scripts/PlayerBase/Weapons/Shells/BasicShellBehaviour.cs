@@ -1,3 +1,4 @@
+using MazeWar.Base;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -9,7 +10,13 @@ namespace MazeWar.PlayerBase.Weapons.Shells
         private float AnimationTime = 0;
 
         [SerializeField]
+        private GameplayManager GameplayManager;
+
+        [SerializeField]
         private Rigidbody2D ShellBody;
+
+        [SerializeField]
+        private Collider2D ShellCollider;
 
         [SerializeField]
         private float _LifeTime = 10f;
@@ -23,7 +30,13 @@ namespace MazeWar.PlayerBase.Weapons.Shells
         private void Awake()
         {
             ShellBody.AddForce(transform.up * Speed, ForceMode2D.Impulse);
+            GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
             StartCoroutine(DestroySelfDelay(LifeTime));
+        }
+
+        private void OnRoundRestart(object sender, EventArgs e)
+        {
+            DoActionsAndDestroySelf(false);
         }
 
         private bool Encounting = false;
@@ -39,7 +52,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.name.Contains("Player"))
+            if (collision.gameObject.tag == "Player")
             {
                 collision.gameObject.SetActive(false);
                 DoActionsAndDestroySelf(true);
@@ -54,6 +67,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
             }
 
             OnShellPreDestroy?.Invoke(this, new ShellPreDestroyEventArgs(AnimationTime));
+            GlobalManager.GameplayManager.OnRoundRestart -= OnRoundRestart;
             StopCoroutine(DestroySelfDelay(LifeTime));
             OnShellPreDestroy = null;
             Destroy(gameObject);

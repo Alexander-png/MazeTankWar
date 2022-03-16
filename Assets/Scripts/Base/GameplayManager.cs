@@ -1,4 +1,5 @@
 using MazeWar.MazeComponents;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,12 @@ namespace MazeWar.Base
 {
     public class GameplayManager : MonoBehaviour
     {
-        // No use at this moment
         private GlobalManager GlobalManager;
 
         private bool InGame = false;
         private MazeCellData MazeHead;
+
+        public EventHandler<EventArgs> OnRoundRestart;
 
         [SerializeField]
         private Generator MazeGenerator;
@@ -33,22 +35,23 @@ namespace MazeWar.Base
                 {
                     if (_PlayersAliveCount <= 1)
                     {
-                        StopCoroutine(RestartRoundDelay(RoundRestartTime));
-                        StartCoroutine(RestartRoundDelay(RoundRestartTime));
+                        if (RestartRoundCoroutine != null)
+                            StopCoroutine(RestartRoundCoroutine);
+                        RestartRoundCoroutine = StartCoroutine(RestartRoundDelay(RoundRestartTime));                        
                     }
                 }
             }
         }
 
-        // Todo: shells must ignore collisions with other shells
-
-
-        // Todo: remove on release
-        private void OnGenerateMazeDebug()
+        private void Start()
         {
-            RestartRound();
+            // 7 is the ID of the shell layer
+            Physics2D.IgnoreLayerCollision(7, 7);
+            GlobalManager = GlobalManager.Instance;
+            GlobalManager.GameplayManager = this;
         }
 
+        private Coroutine RestartRoundCoroutine;
         private IEnumerator RestartRoundDelay(float delay)
         {
             WaitForEndOfFrame wait = new WaitForEndOfFrame();
@@ -60,7 +63,7 @@ namespace MazeWar.Base
             RestartRound();
         }
 
-        private void IncreaseScoreToAlivePlayers()
+        private void AddScoreToAlivePlayers()
         {
             for (int i = 0; i < Players.Length; i++)
             {
@@ -74,7 +77,8 @@ namespace MazeWar.Base
         private void RestartRound()
         {
             InGame = false;
-            IncreaseScoreToAlivePlayers();
+            OnRoundRestart?.Invoke(this, EventArgs.Empty);
+            AddScoreToAlivePlayers();
             PlayersAliveCount = 0;
             if (MazeHead != null)
                 ClearMaze();
@@ -141,15 +145,21 @@ namespace MazeWar.Base
             {
                 if (Players[i] != null)
                 {
-                    randX = Random.Range(0, MazeGenerator.LastCellCountInRow);
-                    randY = Random.Range(0, MazeGenerator.LastCellCountInColumn);
+                    randX = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInRow);
+                    randY = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInColumn);
                     cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
                     Players[i].transform.position = cell.ThisCell.transform.position;
-                    Players[i].transform.Rotate(new Vector3(0, 0, Random.Range(0, 361)));
+                    Players[i].transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 361)));
                     Players[i].SetActive(true);
                     PlayersAliveCount += 1;
                 }
             }
+        }
+
+        // Todo: remove on release
+        private void OnGenerateMazeDebug()
+        {
+            RestartRound();
         }
     }
 }

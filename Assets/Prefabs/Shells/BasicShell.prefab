@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2964810642956647797}
   - component: {fileID: 2964810642956647798}
   - component: {fileID: 1007902137970521450}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BasicShell
-  m_TagString: Untagged
+  m_TagString: Shell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639a66b0d3e05124a898a70994242670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameplayManager: {fileID: 0}
   ShellBody: {fileID: 1007902137970521450}
+  ShellCollider: {fileID: 2964810642956647797}
   _LifeTime: 10
   Speed: 4
 --- !u!50 &1007902137970521450
