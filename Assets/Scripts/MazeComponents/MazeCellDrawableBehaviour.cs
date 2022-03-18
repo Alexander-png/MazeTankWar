@@ -34,9 +34,9 @@ namespace MazeWar.MazeComponents
             }
         }
 
-        public static MazeCellData GetCell(MazeCellData head, int colNumber, int rowNumber, int cellsInCol, int cellsInRow)
+        public static MazeCellData GetCell(MazeCellData mazeHead, int colNumber, int rowNumber, int cellsInCol, int cellsInRow)
         {
-            MazeCellData res = head;
+            MazeCellData res = mazeHead;
             for (int i = 0; i < colNumber && i < cellsInRow - 1 && res != null; i++)
                 res = res.GetNext(Direction.Right);
             for (int i = 0; i < rowNumber && i < cellsInCol - 1 && res != null; i++)

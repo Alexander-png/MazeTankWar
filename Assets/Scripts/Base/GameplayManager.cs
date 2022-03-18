@@ -10,13 +10,14 @@ namespace MazeWar.Base
     {
         private GlobalManager GlobalManager;
 
-        private bool InGame = false;
-        private MazeCellData MazeHead;
+        public bool InGame { get; private set; } = false;
+        public MazeCellData MazeHead { get; private set; }
 
         public EventHandler<EventArgs> OnRoundRestart;
 
+        public Generator MazeGenerator;
         [SerializeField]
-        private Generator MazeGenerator;
+        private PickupManager PickupManager;
         [SerializeField]
         private Camera Camera;
         [SerializeField]
@@ -49,6 +50,7 @@ namespace MazeWar.Base
             Physics2D.IgnoreLayerCollision(7, 7);
             GlobalManager = GlobalManager.Instance;
             GlobalManager.GameplayManager = this;
+            PickupManager.Init();
         }
 
         private Coroutine RestartRoundCoroutine;
@@ -77,6 +79,7 @@ namespace MazeWar.Base
         private void RestartRound()
         {
             InGame = false;
+            PickupManager.StopSpawningPickups();
             OnRoundRestart?.Invoke(this, EventArgs.Empty);
             AddScoreToAlivePlayers();
             PlayersAliveCount = 0;
@@ -85,6 +88,7 @@ namespace MazeWar.Base
             MazeHead = MazeGenerator.GenerateMaze();
             CenterCameraAndZoom();
             MovePlayersToRandomCell();
+            PickupManager.StartSpawninigPickups();
             InGame = true;
         }
 

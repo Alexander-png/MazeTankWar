@@ -24,8 +24,13 @@ namespace MazeWar.PlayerBase.Weapons
             if (CanShoot)
             {
                 Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>().OnShellPreDestroy += ShellDestroyed;
-                //CanShoot = false;
+                CanShoot = false;
             }
+        }
+
+        public bool CanBeSwitchedNow()
+        {
+            return true;
         }
 
         private void ShellDestroyed(object sender, ShellPreDestroyEventArgs e)

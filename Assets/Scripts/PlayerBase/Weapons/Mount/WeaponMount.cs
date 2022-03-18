@@ -43,14 +43,26 @@ namespace MazeWar.PlayerBase.Weapons.Mount
                 ShootLogic();
         }
 
-        private void OnShoot(InputValue input)
-        {
-            ShootButtonPressed = input.isPressed;
-        }
-
         private void ShootLogic()
         {
             CurrentWeapon.Shoot();
+        }
+
+        public bool SetCurrentWeapon(WeaponTypes wType)
+        {
+            if (CurrentWeapon.WeaponType == WeaponTypes.Cannon && CurrentWeapon.CanBeSwitchedNow())
+            {
+                CurrentWeapon.ThisObject.SetActive(false);
+                CurrentWeapon = WeaponDict[wType];
+                WeaponDict[wType].ThisObject.SetActive(true);
+                return true;
+            }
+            return false;
+        }
+
+        private void OnShoot(InputValue input)
+        {
+            ShootButtonPressed = input.isPressed;
         }
     }
 }

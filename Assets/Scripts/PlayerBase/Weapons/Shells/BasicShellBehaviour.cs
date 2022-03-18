@@ -10,9 +10,6 @@ namespace MazeWar.PlayerBase.Weapons.Shells
         private float AnimationTime = 0;
 
         [SerializeField]
-        private GameplayManager GameplayManager;
-
-        [SerializeField]
         private Rigidbody2D ShellBody;
 
         [SerializeField]
