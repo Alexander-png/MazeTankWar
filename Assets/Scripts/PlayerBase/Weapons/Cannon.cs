@@ -1,4 +1,5 @@
 ﻿using MazeWar.PlayerBase.Weapons.Shells;
+using System;
 using UnityEngine;
 
 namespace MazeWar.PlayerBase.Weapons
@@ -17,7 +18,10 @@ namespace MazeWar.PlayerBase.Weapons
         private GameObject _ThisObject;
         public GameObject ThisObject => _ThisObject;
 
+        public EventHandler<WeaponSwitchEventArgs> OnWeaponCanBeSwitched { get; set; }
+
         private bool CanShoot = true;
+
 
         public void Shoot(bool triggerPressed)
         {

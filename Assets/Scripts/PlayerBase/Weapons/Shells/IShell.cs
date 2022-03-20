@@ -2,7 +2,6 @@
 
 namespace MazeWar.PlayerBase.Weapons.Shells
 {
-    // Todo: pass event with animation length to cannon
     public class ShellPreDestroyEventArgs : EventArgs
     {
         public readonly float PreDestroyAnimationTimeSpan;

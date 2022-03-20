@@ -16,10 +16,16 @@ namespace MazeWar.PlayerBase.Weapons.Shells
         private float _LifeTime = 10f;
         public float LifeTime => _LifeTime;
 
-        public EventHandler<ShellPreDestroyEventArgs> OnShellPreDestroy { get; set; }
-
         [SerializeField]
         private float Speed;
+
+        [SerializeField]
+        private GameObject FragmentPrefab;
+
+        [SerializeField]
+        public int FragmentCount;
+
+        public EventHandler<ShellPreDestroyEventArgs> OnShellPreDestroy { get; set; }
 
         private void Awake()
         {
@@ -64,7 +70,14 @@ namespace MazeWar.PlayerBase.Weapons.Shells
             GlobalManager.GameplayManager.OnRoundRestart -= OnRoundRestart;
             StopCoroutine(DestroySelfDelay(LifeTime));
             OnShellPreDestroy = null;
+            ReleaseFragments();
             Destroy(gameObject);
+        }
+
+        private void ReleaseFragments()
+        {
+            for (int i = 0; i < FragmentCount; i++)
+                Instantiate(FragmentPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(0, 361))));
         }
 
         public void OnWeaponShoot()

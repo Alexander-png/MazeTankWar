@@ -48,6 +48,9 @@ namespace MazeWar.Base
         {
             // 7 is the ID of the shell layer
             Physics2D.IgnoreLayerCollision(7, 7);
+            Physics2D.IgnoreLayerCollision(10, 7);
+            Physics2D.IgnoreLayerCollision(10, 8);
+            Physics2D.IgnoreLayerCollision(10, 10);
             GlobalManager = GlobalManager.Instance;
             GlobalManager.GameplayManager = this;
             PickupManager.Init();
@@ -79,11 +82,13 @@ namespace MazeWar.Base
         // Todo:
         // Before spawining pickup check if there is any already in cell
         // Make this logic for players
+        // reset weapon when round restarted
+        // make explosive shell better
 
         private void RestartRound()
         {
             InGame = false;
-            //PickupManager.StopSpawningPickups();
+            PickupManager.StopSpawningPickups();
             OnRoundRestart?.Invoke(this, EventArgs.Empty);
             AddScoreToAlivePlayers();
             PlayersAliveCount = 0;
@@ -92,7 +97,7 @@ namespace MazeWar.Base
             MazeHead = MazeGenerator.GenerateMaze();
             CenterCameraAndZoom();
             MovePlayersToRandomCell();
-            //PickupManager.StartSpawninigPickups();
+            PickupManager.StartSpawninigPickups();
             InGame = true;
         }
 

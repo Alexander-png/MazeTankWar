@@ -1,4 +1,5 @@
 using MazeWar.PlayerBase.Weapons.Shells;
+using System;
 using UnityEngine;
 
 namespace MazeWar.PlayerBase.Weapons
@@ -21,6 +22,8 @@ namespace MazeWar.PlayerBase.Weapons
         private bool CanShootAgain = false;
         private bool CanBeSwitched = false;
         private IShell PassedShell;
+
+        public EventHandler<WeaponSwitchEventArgs> OnWeaponCanBeSwitched { get; set; }
 
         public void Shoot(bool triggerPressed)
         {
@@ -47,6 +50,7 @@ namespace MazeWar.PlayerBase.Weapons
         public void Reload() 
         {
             CanShoot = true;
+            CanBeSwitched = false;
         }
 
         public bool CanBeSwitchedNow()
@@ -59,6 +63,7 @@ namespace MazeWar.PlayerBase.Weapons
             CanBeSwitched = true;
             CanShoot = false;
             PassedShell = null;
+            OnWeaponCanBeSwitched?.Invoke(this, new WeaponSwitchEventArgs(WeaponType));
         }
     }
 }
