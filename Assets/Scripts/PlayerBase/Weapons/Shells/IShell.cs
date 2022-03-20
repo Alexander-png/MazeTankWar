@@ -17,5 +17,6 @@ namespace MazeWar.PlayerBase.Weapons.Shells
     {
         float LifeTime { get; }
         EventHandler<ShellPreDestroyEventArgs> OnShellPreDestroy { get; set; }
+        public void OnWeaponShoot(); 
     }
 }

@@ -39,13 +39,12 @@ namespace MazeWar.PlayerBase.Weapons.Mount
 
         private void FixedUpdate()
         {
-            if (ShootButtonPressed)
-                ShootLogic();
+            ShootLogic();
         }
 
         private void ShootLogic()
         {
-            CurrentWeapon.Shoot();
+            CurrentWeapon.Shoot(ShootButtonPressed);
         }
 
         public bool SetCurrentWeapon(WeaponTypes wType)
@@ -54,6 +53,7 @@ namespace MazeWar.PlayerBase.Weapons.Mount
             {
                 CurrentWeapon.ThisObject.SetActive(false);
                 CurrentWeapon = WeaponDict[wType];
+                CurrentWeapon.Reload();
                 WeaponDict[wType].ThisObject.SetActive(true);
                 return true;
             }

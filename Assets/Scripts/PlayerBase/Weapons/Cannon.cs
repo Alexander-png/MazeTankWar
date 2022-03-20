@@ -19,14 +19,17 @@ namespace MazeWar.PlayerBase.Weapons
 
         private bool CanShoot = true;
 
-        public void Shoot()
+        public void Shoot(bool triggerPressed)
         {
-            if (CanShoot)
+            if (triggerPressed && CanShoot)
             {
                 Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>().OnShellPreDestroy += ShellDestroyed;
                 CanShoot = false;
             }
         }
+
+        // The basic cannon can't be reloaded manually
+        public void Reload() { }
 
         public bool CanBeSwitchedNow()
         {

@@ -15,13 +15,12 @@ namespace MazeWar.Pickup
 
         private void Awake()
         {
-            GlobalManager.GameplayManager.OnRoundRestart += OnStartRestart;
+            GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
         }
 
-        private void OnStartRestart(object sender, EventArgs e)
+        private void OnRoundRestart(object sender, EventArgs e)
         {
-            GlobalManager.GameplayManager.OnRoundRestart -= OnStartRestart;
-            Destroy(gameObject);
+            DestroySelf();
         }
 
         public void SetPickupData(PickupData data)
@@ -39,7 +38,6 @@ namespace MazeWar.Pickup
             gameObject.SetActive(true);
         }
 
-
         PlayerObjectObserver CurrentPlayerObserver;
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -52,13 +50,19 @@ namespace MazeWar.Pickup
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (collision.gameObject.layer == 6 && CurrentPlayerObserver.SetWeapon(Data.WeaponType))
-                Destroy(gameObject);
+                DestroySelf();
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.gameObject.layer == 6)
                 CurrentPlayerObserver = null;
+        }
+
+        private void DestroySelf()
+        {
+            GlobalManager.GameplayManager.OnRoundRestart -= OnRoundRestart;
+            Destroy(gameObject);
         }
     }
 }

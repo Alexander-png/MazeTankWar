@@ -8,7 +8,8 @@ namespace MazeWar.PlayerBase.Weapons
     { 
         public WeaponTypes WeaponType { get; }
         public GameObject ThisObject { get; }
-        public void Shoot();
+        public void Shoot(bool triggerPressed);
+        public void Reload();
         public bool CanBeSwitchedNow();
     }
 }

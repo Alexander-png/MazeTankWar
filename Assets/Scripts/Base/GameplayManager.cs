@@ -76,10 +76,14 @@ namespace MazeWar.Base
             }
         }
 
+        // Todo:
+        // Before spawining pickup check if there is any already in cell
+        // Make this logic for players
+
         private void RestartRound()
         {
             InGame = false;
-            PickupManager.StopSpawningPickups();
+            //PickupManager.StopSpawningPickups();
             OnRoundRestart?.Invoke(this, EventArgs.Empty);
             AddScoreToAlivePlayers();
             PlayersAliveCount = 0;
@@ -88,7 +92,7 @@ namespace MazeWar.Base
             MazeHead = MazeGenerator.GenerateMaze();
             CenterCameraAndZoom();
             MovePlayersToRandomCell();
-            PickupManager.StartSpawninigPickups();
+            //PickupManager.StartSpawninigPickups();
             InGame = true;
         }
 

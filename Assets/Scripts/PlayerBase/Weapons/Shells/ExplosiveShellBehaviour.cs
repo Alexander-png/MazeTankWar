@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MazeWar.PlayerBase.Weapons.Shells
 {
-    public class BasicShellBehaviour : MonoBehaviour, IShell
+    public class ExplosiveShellBehaviour : MonoBehaviour, IShell
     {
         private float AnimationTime = 0;
 
@@ -67,8 +67,10 @@ namespace MazeWar.PlayerBase.Weapons.Shells
             Destroy(gameObject);
         }
 
-        // Basic bullet don't do any logic if weapon passed it was shooted again
-        public void OnWeaponShoot(){ }
+        public void OnWeaponShoot()
+        {
+            DoActionsAndDestroySelf(false);
+        }
     }
 }
 
