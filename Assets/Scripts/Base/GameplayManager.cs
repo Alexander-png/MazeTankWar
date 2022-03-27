@@ -43,11 +43,6 @@ namespace MazeWar.Base
 
         private void Start()
         {
-            // 7 is the ID of the shell layer
-            Physics2D.IgnoreLayerCollision(7, 7);
-            Physics2D.IgnoreLayerCollision(10, 7);
-            Physics2D.IgnoreLayerCollision(10, 8);
-            Physics2D.IgnoreLayerCollision(10, 10);
             GlobalManager = GlobalManager.Instance;
             GlobalManager.GameplayManager = this;
             PickupManager.Init();

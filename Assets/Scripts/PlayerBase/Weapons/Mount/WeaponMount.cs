@@ -10,7 +10,7 @@ namespace MazeWar.PlayerBase.Weapons.Mount
     {
         private Dictionary<WeaponTypes, IWeapon> WeaponDict = new Dictionary<WeaponTypes, IWeapon>();
         private IWeapon CurrentWeapon;
-        private bool ShootButtonPressed;
+        public bool ShootButtonPressed;
 
         [SerializeField]
         private WeaponTypes DefaultWeapon;
@@ -80,14 +80,10 @@ namespace MazeWar.PlayerBase.Weapons.Mount
                 CurrentWeapon = WeaponDict[wType];
                 CurrentWeapon.Reload();
                 WeaponDict[wType].ThisObject.SetActive(true);
+                ShootButtonPressed = false;
                 return true;
             }
             return false;
-        }
-
-        private void OnShoot(InputValue input)
-        {
-            ShootButtonPressed = input.isPressed;
         }
     }
 }

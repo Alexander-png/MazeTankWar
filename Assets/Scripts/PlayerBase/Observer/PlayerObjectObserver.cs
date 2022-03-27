@@ -2,6 +2,7 @@ using MazeWar.Base;
 using MazeWar.PlayerBase.Weapons;
 using MazeWar.PlayerBase.Weapons.Mount;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MazeWar.PlayerBase.Observer
 {
@@ -21,6 +22,11 @@ namespace MazeWar.PlayerBase.Observer
         public bool SetWeapon(WeaponTypes wType)
         {
             return PlayerWeaponMount.SetCurrentWeapon(wType);
+        }
+
+        private void OnShoot(InputValue input)
+        {
+            PlayerWeaponMount.ShootButtonPressed = input.isPressed;
         }
     }
 }
