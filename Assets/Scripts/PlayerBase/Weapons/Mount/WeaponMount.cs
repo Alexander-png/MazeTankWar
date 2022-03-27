@@ -27,8 +27,6 @@ namespace MazeWar.PlayerBase.Weapons.Mount
             }
         }
 
-        // Todo: reset weapon when round restarted
-
         private void Start()
         {
             //GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;

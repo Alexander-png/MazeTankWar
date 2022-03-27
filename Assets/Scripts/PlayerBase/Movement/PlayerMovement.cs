@@ -47,7 +47,7 @@ namespace MazeWar.PlayerBase.Movement
             currentSpeed *= Time.fixedDeltaTime;
             // Moving body
             float bodyRotationAsRadian = PlayerBody.rotation * Mathf.Deg2Rad;
-            PlayerBody.velocity = new Vector2(Mathf.Cos(bodyRotationAsRadian) * currentSpeed, Mathf.Sin(bodyRotationAsRadian) * currentSpeed);
+            PlayerBody.velocity = new Vector2(Mathf.Cos(bodyRotationAsRadian), Mathf.Sin(bodyRotationAsRadian)) * currentSpeed;
         }
 
         #region Input logic

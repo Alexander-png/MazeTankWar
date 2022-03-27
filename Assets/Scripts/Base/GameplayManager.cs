@@ -9,15 +9,12 @@ namespace MazeWar.Base
     public class GameplayManager : MonoBehaviour
     {
         private GlobalManager GlobalManager;
-
         public bool InGame { get; private set; } = false;
         public MazeCellData MazeHead { get; private set; }
-
         public EventHandler<EventArgs> OnRoundRestart;
-
         public Generator MazeGenerator;
-        [SerializeField]
-        private PickupManager PickupManager;
+
+        public PickupManager PickupManager;
         [SerializeField]
         private Camera Camera;
         [SerializeField]
@@ -80,8 +77,6 @@ namespace MazeWar.Base
         }
 
         // Todo:
-        // Before spawining pickup check if there is any already in cell
-        // Make this logic for players
         // reset weapon when round restarted
         // make explosive shell better
 
@@ -158,13 +153,20 @@ namespace MazeWar.Base
             {
                 if (Players[i] != null)
                 {
-                    randX = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInRow);
-                    randY = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInColumn);
-                    cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
-                    Players[i].transform.position = cell.ThisCell.transform.position;
-                    Players[i].transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 361)));
-                    Players[i].SetActive(true);
-                    PlayersAliveCount += 1;
+                    while (true)
+                    {
+                        randX = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInRow);
+                        randY = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInColumn);
+                        cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
+                        if (!cell.IsAnyPlayerHere)
+                        {
+                            Players[i].transform.position = cell.ThisCell.transform.position;
+                            Players[i].transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 361)));
+                            Players[i].SetActive(true);
+                            PlayersAliveCount += 1;
+                            break;
+                        }
+                    }
                 }
             }
         }

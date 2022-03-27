@@ -36,7 +36,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
 
         private void OnRoundRestart(object sender, EventArgs e)
         {
-            DoActionsAndDestroySelf(false);
+            DoActionsAndDestroySelf(true);
         }
 
         private bool Encounting = false;
@@ -47,7 +47,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
 
             Encounting = true;
             yield return new WaitForSeconds(seconds);
-            DoActionsAndDestroySelf(false);
+            DoActionsAndDestroySelf();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -55,22 +55,18 @@ namespace MazeWar.PlayerBase.Weapons.Shells
             if (collision.gameObject.tag == "Player")
             {
                 collision.gameObject.SetActive(false);
-                DoActionsAndDestroySelf(true);
+                DoActionsAndDestroySelf();
             }
         }
 
-        private void DoActionsAndDestroySelf(bool onCollisionWithPlayer)
+        private void DoActionsAndDestroySelf(bool onRoundRestart = false)
         {
-            if (!onCollisionWithPlayer)
-            {
-                Debug.LogWarning("Don't forget to add shell disappearing animation!");
-            }
-
             OnShellPreDestroy?.Invoke(this, new ShellPreDestroyEventArgs(AnimationTime));
             GlobalManager.GameplayManager.OnRoundRestart -= OnRoundRestart;
             StopCoroutine(DestroySelfDelay(LifeTime));
             OnShellPreDestroy = null;
-            ReleaseFragments();
+            if (!onRoundRestart)
+                ReleaseFragments();
             Destroy(gameObject);
         }
 
@@ -82,7 +78,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
 
         public void OnWeaponShoot()
         {
-            DoActionsAndDestroySelf(false);
+            DoActionsAndDestroySelf();
         }
     }
 }

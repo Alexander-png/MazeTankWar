@@ -1,3 +1,4 @@
+using MazeWar.Base;
 using System;
 using UnityEngine;
 
@@ -33,6 +34,9 @@ namespace MazeWar.MazeComponents
                 _ThisCell = value;
             }
         }
+
+        public bool IsAnyPlayerHere = false;
+        public bool IsAnyPickupHere = false;
 
         public static MazeCellData GetCell(MazeCellData mazeHead, int colNumber, int rowNumber, int cellsInCol, int cellsInRow)
         {
@@ -167,6 +171,8 @@ namespace MazeWar.MazeComponents
 
     public class MazeCellDrawableBehaviour : MonoBehaviour
     {
+        private PickupManager PickupManager;
+
         [SerializeField]
         private GameObject TopWall;
         [SerializeField]
@@ -177,6 +183,11 @@ namespace MazeWar.MazeComponents
         private GameObject BottomWall;
 
         public MazeCellData Data { get; private set; }
+
+        private void Awake()
+        {
+            PickupManager = GlobalManager.GameplayManager.PickupManager;
+        }
 
         public void SetCellData(MazeCellData data, float cellSize)
         {
@@ -212,6 +223,25 @@ namespace MazeWar.MazeComponents
             {
                 BottomWall.SetActive(true);
                 Data.BottomWallBuilt = true;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.tag == "Player")
+                Data.IsAnyPlayerHere = true;
+            if (collision.tag == "Pickup")
+                Data.IsAnyPickupHere = true;
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.tag == "Player")
+                Data.IsAnyPlayerHere = false;
+            if (collision.tag == "Pickup")
+            {
+                Data.IsAnyPickupHere = false;
+                PickupManager.OnPickupPicked();
             }
         }
     }
