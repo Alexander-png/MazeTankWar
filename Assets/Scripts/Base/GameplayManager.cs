@@ -35,7 +35,7 @@ namespace MazeWar.Base
                     {
                         if (RestartRoundCoroutine != null)
                             StopCoroutine(RestartRoundCoroutine);
-                        RestartRoundCoroutine = StartCoroutine(RestartRoundDelay(RoundRestartTime));                        
+                        RestartRoundCoroutine = StartCoroutine(RestartRoundDelay(RoundRestartTime));
                     }
                 }
             }
@@ -75,10 +75,6 @@ namespace MazeWar.Base
                 }
             }
         }
-
-        // Todo:
-        // reset weapon when round restarted
-        // make explosive shell better
 
         private void RestartRound()
         {

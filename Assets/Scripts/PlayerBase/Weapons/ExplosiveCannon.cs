@@ -47,6 +47,12 @@ namespace MazeWar.PlayerBase.Weapons
             }
         }
 
+        private void OnDisable()
+        {
+            if (PassedShell != null)
+                PassedShell.OnWeaponShoot();
+        }
+
         public void Reload() 
         {
             CanShoot = true;

@@ -1,9 +1,7 @@
 using MazeWar.Base;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace MazeWar.PlayerBase.Weapons.Shells.Fragments
 {
@@ -13,16 +11,17 @@ namespace MazeWar.PlayerBase.Weapons.Shells.Fragments
         private Rigidbody2D FragmentBody;
 
         [SerializeField]
-        private float Speed;
+        private float MinSpeed;
+        [SerializeField]
+        private float MaxSpeed;
         [SerializeField]
         private float RotationSpeed;
-
 
         public float LifeTime = 15;
 
         private void Awake()
         {
-            FragmentBody.AddForce(transform.up * Speed, ForceMode2D.Impulse);
+            FragmentBody.AddForce(transform.up * UnityEngine.Random.Range(MinSpeed, MaxSpeed), ForceMode2D.Impulse);
             FragmentBody.angularVelocity = RotationSpeed;
             GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
             StartCoroutine(DestroySelfDelay(LifeTime));

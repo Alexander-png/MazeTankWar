@@ -72,13 +72,24 @@ namespace MazeWar.PlayerBase.Weapons.Shells
 
         private void ReleaseFragments()
         {
+            int currentDirection = 0;
+            int minStep = 5;
+            int maxStep = 30;
+
             for (int i = 0; i < FragmentCount; i++)
-                Instantiate(FragmentPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, UnityEngine.Random.Range(0, 361))));
+            {
+                currentDirection += UnityEngine.Random.Range(minStep, maxStep);
+                Instantiate(FragmentPrefab, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, currentDirection)));
+            }   
         }
 
         public void OnWeaponShoot()
         {
-            DoActionsAndDestroySelf();
+            bool val = false;
+            // Check GlobalManager.GameplayManager for null for ability to shoot with no depend of gameplay manager
+            if (GlobalManager.GameplayManager != null)
+                val = !GlobalManager.GameplayManager.InGame;
+            DoActionsAndDestroySelf(val);
         }
     }
 }

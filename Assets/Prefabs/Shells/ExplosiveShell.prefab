@@ -140,4 +140,4 @@ MonoBehaviour:
   _LifeTime: 10
   Speed: 4
   FragmentPrefab: {fileID: 7104391822232187860, guid: 1f6f40d1d3aedf74c831826d443fe446, type: 3}
-  FragmentCount: 25
+  FragmentCount: 30

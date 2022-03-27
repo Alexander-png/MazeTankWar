@@ -29,16 +29,26 @@ namespace MazeWar.PlayerBase.Weapons.Mount
 
         private void Start()
         {
-            //GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
+            if (GlobalManager.GameplayManager == null)
+                GlobalManager.OnGameplayManagerAppeared += OnGameplayManagerInitialized;
+            else
+                GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
 
             ShootButtonPressed = false;
             CurrentWeapon = WeaponDict[DefaultWeapon];
             CurrentWeapon.ThisObject.SetActive(true);
         }
 
+        private void OnGameplayManagerInitialized(object sender, EventArgs e)
+        {
+            // Because OnGameplayManagerAppeared can be invoked only once, we don't need this subscription anymore.
+            GlobalManager.OnGameplayManagerAppeared -= OnGameplayManagerInitialized;
+            GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
+        }
+
         private void OnRoundRestart(object sender, EventArgs e)
         {
-            SetCurrentWeapon(DefaultWeapon);
+            SetCurrentWeapon(DefaultWeapon, true);
         }
 
         private void OnEnable()
@@ -62,9 +72,9 @@ namespace MazeWar.PlayerBase.Weapons.Mount
                 SetCurrentWeapon(DefaultWeapon);
         }
 
-        public bool SetCurrentWeapon(WeaponTypes wType)
+        public bool SetCurrentWeapon(WeaponTypes wType, bool forced = false)
         {
-            if (CurrentWeapon.CanBeSwitchedNow())
+            if (CurrentWeapon.CanBeSwitchedNow() || forced)
             {
                 CurrentWeapon.ThisObject.SetActive(false);
                 CurrentWeapon = WeaponDict[wType];
