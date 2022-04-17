@@ -97,12 +97,12 @@ namespace MazeWar.MazeComponents
                     MazeCellData next = null;
 
                     Dictionary<Direction, bool> checkedDirs = new Dictionary<Direction, bool>
-                {
-                    { Direction.Up, false },
-                    { Direction.Left, false },
-                    { Direction.Down, false },
-                    { Direction.Right, false },
-                };
+                    {
+                        { Direction.Up, false },
+                        { Direction.Left, false },
+                        { Direction.Down, false },
+                        { Direction.Right, false },
+                    };
                     // Selecting non-null next cell.
                     do
                     {

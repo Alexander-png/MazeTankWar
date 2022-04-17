@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// todo: UI
+
 namespace MazeWar.Base
 {
     public class GameplayManager : MonoBehaviour

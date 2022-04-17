@@ -1,48 +1,22 @@
-﻿using MazeWar.PlayerBase.Weapons.Shells;
-using System;
-using UnityEngine;
+﻿using MazeWar.PlayerBase.Weapons.Base;
+using MazeWar.PlayerBase.Weapons.Shells;
 
 namespace MazeWar.PlayerBase.Weapons
 {
-    public class Cannon : MonoBehaviour, IWeapon
+    public class Cannon : BaseWeapon
     {
-        [SerializeField]
-        private GameObject ShellPrefab;
-        [SerializeField]
-        private GameObject ShellSpawnPoint;
-        [SerializeField]
-        private WeaponTypes _WeaponType;
-        public WeaponTypes WeaponType => _WeaponType;
-
-        [SerializeField]
-        private GameObject _ThisObject;
-        public GameObject ThisObject => _ThisObject;
-
-        public EventHandler<WeaponSwitchEventArgs> OnWeaponCanBeSwitched { get; set; }
-
-        private bool CanShoot = true;
-
-
-        public void Shoot(bool triggerPressed)
+        public override void Shoot(bool triggerPressed)
         {
-            if (triggerPressed && CanShoot)
+            if (triggerPressed && _CanShoot)
             {
                 Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>().OnShellPreDestroy += ShellDestroyed;
-                CanShoot = false;
+                _CanShoot = false;
             }
-        }
-
-        // The basic cannon can't be reloaded manually
-        public void Reload() { }
-
-        public bool CanBeSwitchedNow()
-        {
-            return true;
         }
 
         private void ShellDestroyed(object sender, ShellPreDestroyEventArgs e)
         {
-            CanShoot = true;
+            _CanShoot = true;
         }
     }
 }
