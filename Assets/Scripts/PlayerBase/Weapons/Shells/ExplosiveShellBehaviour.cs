@@ -1,73 +1,27 @@
 using MazeWar.Base;
+using MazeWar.PlayerBase.Weapons.Shells.Base;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace MazeWar.PlayerBase.Weapons.Shells
 {
-    public class ExplosiveShellBehaviour : MonoBehaviour, IShell
+    public class ExplosiveShellBehaviour : BaseShellBehaviour
     {
-        private float AnimationTime = 0;
-
-        [SerializeField]
-        private Rigidbody2D ShellBody;
-
-        [SerializeField]
-        private float _LifeTime = 10f;
-        public float LifeTime => _LifeTime;
-
-        [SerializeField]
-        private float Speed;
-
         [SerializeField]
         private GameObject FragmentPrefab;
-
         [SerializeField]
-        public int FragmentCount;
+        private int FragmentCount;
 
-        public EventHandler<ShellPreDestroyEventArgs> OnShellPreDestroy { get; set; }
-
-        private void Awake()
+        protected override void OnRoundRestart(object sender, EventArgs e)
         {
-            ShellBody.AddForce(transform.up * Speed, ForceMode2D.Impulse);
-            GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
-            StartCoroutine(DestroySelfDelay(LifeTime));
+            DoActionsAndDestroySelf(false);
         }
 
-        private void OnRoundRestart(object sender, EventArgs e)
+        protected override void DoActionsAndDestroySelf(bool onCollisionWithPlayer)
         {
-            DoActionsAndDestroySelf(true);
-        }
-
-        private bool Encounting = false;
-        private IEnumerator DestroySelfDelay(float seconds)
-        {
-            if (Encounting)
-                yield break;
-
-            Encounting = true;
-            yield return new WaitForSeconds(seconds);
-            DoActionsAndDestroySelf();
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.tag == "Player")
-            {
-                collision.gameObject.SetActive(false);
-                DoActionsAndDestroySelf();
-            }
-        }
-
-        private void DoActionsAndDestroySelf(bool onRoundRestart = false)
-        {
-            OnShellPreDestroy?.Invoke(this, new ShellPreDestroyEventArgs(AnimationTime));
-            GlobalManager.GameplayManager.OnRoundRestart -= OnRoundRestart;
-            StopCoroutine(DestroySelfDelay(LifeTime));
-            OnShellPreDestroy = null;
-            if (!onRoundRestart)
+            if (onCollisionWithPlayer || IsInGame())
                 ReleaseFragments();
-            Destroy(gameObject);
+            base.DoActionsAndDestroySelf(onCollisionWithPlayer);
         }
 
         private void ReleaseFragments()
@@ -83,13 +37,11 @@ namespace MazeWar.PlayerBase.Weapons.Shells
             }   
         }
 
-        public void OnWeaponShoot()
+        private bool IsInGame() => GlobalManager.GameplayManager.InGame;
+
+        public override void OnWeaponShoot()
         {
-            bool val = false;
-            // Check GlobalManager.GameplayManager for null for ability to shoot with no depend of gameplay manager
-            if (GlobalManager.GameplayManager != null)
-                val = !GlobalManager.GameplayManager.InGame;
-            DoActionsAndDestroySelf(val);
+            DoActionsAndDestroySelf(false);
         }
     }
 }
