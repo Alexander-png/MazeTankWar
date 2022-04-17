@@ -140,6 +140,8 @@ namespace MazeWar.Base
             int randX;
             int randY;
             MazeCellData cell;
+            List<Tuple<int, int>> playerCorrdsMap = new List<Tuple<int, int>>(Players.Length);
+
             for (int i = 0; i < Players.Length; i++)
             {
                 if (Players[i] != null)
@@ -149,12 +151,15 @@ namespace MazeWar.Base
                         randX = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInRow);
                         randY = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInColumn);
                         cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
-                        if (!cell.IsAnyPlayerHere)
+
+                        Tuple<int, int> match = playerCorrdsMap.Find(c => c.Item1 == randX && c.Item2 == randY);
+                        if (match == null)
                         {
                             Players[i].transform.position = cell.ThisCell.transform.position;
                             Players[i].transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 361)));
                             Players[i].SetActive(true);
                             PlayersAliveCount += 1;
+                            playerCorrdsMap.Add(new Tuple<int, int>(randX, randY));
                             break;
                         }
                     }
