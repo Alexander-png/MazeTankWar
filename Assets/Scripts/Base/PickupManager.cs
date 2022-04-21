@@ -1,74 +1,74 @@
-using MazeWar.Base;
 using MazeWar.MazeComponents;
-using MazeWar.Pickup;
 using MazeWar.Pickup.Scriptable;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupManager : MonoBehaviour
+namespace MazeWar.Base
 {
-    private GameplayManager GameplayManager;
-    private int PossiblePickupCountInTheMaze;
-    private int CurrentPickupCountInTheMaze;
-
-    [SerializeField]
-    private Pickup PickupPrefab;
-    [SerializeField]
-    private PickupData[] DataPickups;
-    [SerializeField]
-    private float PickupSpawnDelay;
-    
-    private Coroutine PickupSpawningRepeatCoroutine;
-        
-    public void Init()
+    public class PickupManager : MonoBehaviour
     {
-        GameplayManager = GlobalManager.GameplayManager;
-    }
+        private GameplayManager GameplayManager;
+        private int PossiblePickupCountInTheMaze;
+        private int CurrentPickupCountInTheMaze;
 
-    public void StartSpawninigPickups()
-    {
-        PossiblePickupCountInTheMaze = GameplayManager.MazeGenerator.LastCellCountInRow * GameplayManager.MazeGenerator.LastCellCountInColumn - GameplayManager.PlayersAliveCount;
-        PickupSpawningRepeatCoroutine = StartCoroutine(SpawnPickupsDelay(PickupSpawnDelay));
-    }
+        [SerializeField]
+        private Pickup.Pickup PickupPrefab;
+        [SerializeField]
+        private PickupData[] DataPickups;
+        [SerializeField]
+        private float PickupSpawnDelay;
 
-    public void StopSpawningPickups()
-    {
-        if (PickupSpawningRepeatCoroutine != null)
-            StopCoroutine(PickupSpawningRepeatCoroutine);
-    }
+        private Coroutine PickupSpawningRepeatCoroutine;
 
-    private IEnumerator SpawnPickupsDelay(float delay)
-    {
-        int randX;
-        int randY;
-        int randomPickupDataIndex;
-        int lastCellCountinRow = GameplayManager.MazeGenerator.LastCellCountInRow;
-        int lastCellCountinColumn = GameplayManager.MazeGenerator.LastCellCountInColumn;
-
-        MazeCellData cell;
-        while (true)
+        public void Init()
         {
-            yield return new WaitForSeconds(delay);
-            while (true && CurrentPickupCountInTheMaze < PossiblePickupCountInTheMaze)
+            GameplayManager = GlobalManager.GameplayManager;
+        }
+
+        public void StartSpawninigPickups()
+        {
+            PossiblePickupCountInTheMaze = GameplayManager.MazeGenerator.LastCellCountInRow * GameplayManager.MazeGenerator.LastCellCountInColumn - GameplayManager.PlayersAliveCount;
+            PickupSpawningRepeatCoroutine = StartCoroutine(SpawnPickupsDelay(PickupSpawnDelay));
+        }
+
+        public void StopSpawningPickups()
+        {
+            if (PickupSpawningRepeatCoroutine != null)
+                StopCoroutine(PickupSpawningRepeatCoroutine);
+        }
+
+        private IEnumerator SpawnPickupsDelay(float delay)
+        {
+            int randX;
+            int randY;
+            int randomPickupDataIndex;
+            int lastCellCountinRow = GameplayManager.MazeGenerator.LastCellCountInRow;
+            int lastCellCountinColumn = GameplayManager.MazeGenerator.LastCellCountInColumn;
+
+            MazeCellData cell;
+            while (true)
             {
-                randX = Random.Range(0, lastCellCountinRow);
-                randY = Random.Range(0, lastCellCountinColumn);
-                cell = MazeCellData.GetCell(GameplayManager.MazeHead, randX, randY, lastCellCountinColumn, lastCellCountinRow);
-                if (!cell.IsAnyPickupHere && !cell.IsAnyPlayerHere)
+                yield return new WaitForSeconds(delay);
+                while (true && CurrentPickupCountInTheMaze < PossiblePickupCountInTheMaze)
                 {
-                    //randomPickupDataIndex = Random.Range(0, DataPickups.Length);
-                    randomPickupDataIndex = 2; // Debug
-                    Instantiate(PickupPrefab, cell.ThisCell.transform).GetComponent<Pickup>().SetPickupData(DataPickups[randomPickupDataIndex]);
-                    CurrentPickupCountInTheMaze += 1;
-                    break;
+                    randX = Random.Range(0, lastCellCountinRow);
+                    randY = Random.Range(0, lastCellCountinColumn);
+                    cell = MazeCellData.GetCell(GameplayManager.MazeHead, randX, randY, lastCellCountinColumn, lastCellCountinRow);
+                    if (!cell.IsAnyPickupHere && !cell.IsAnyPlayerHere)
+                    {
+                        //randomPickupDataIndex = Random.Range(0, DataPickups.Length);
+                        randomPickupDataIndex = 2; // Debug
+                        Instantiate(PickupPrefab, cell.ThisCell.transform).GetComponent<Pickup.Pickup>().SetPickupData(DataPickups[randomPickupDataIndex]);
+                        CurrentPickupCountInTheMaze += 1;
+                        break;
+                    }
                 }
             }
         }
-    }
 
-    public void OnPickupPicked()
-    {
-        CurrentPickupCountInTheMaze -= 1;
+        public void OnPickupPicked()
+        {
+            CurrentPickupCountInTheMaze -= 1;
+        }
     }
 }

@@ -1,4 +1,5 @@
 using MazeWar.Base;
+using MazeWar.PlayerBase.Observer;
 using System;
 using UnityEngine;
 
@@ -172,6 +173,8 @@ namespace MazeWar.MazeComponents
     public class MazeCellDrawableBehaviour : MonoBehaviour
     {
         private PickupManager PickupManager;
+        private PlayerStateObserver CurrentPlayerObserver;
+        private Pickup.Pickup CurrentPickup;
 
         [SerializeField]
         private GameObject TopWall;
@@ -228,17 +231,26 @@ namespace MazeWar.MazeComponents
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.tag == "Player")
+            if (collision.TryGetComponent(out PlayerStateObserver observer))
+            {
+                CurrentPlayerObserver = observer;
                 Data.IsAnyPlayerHere = true;
-            if (collision.tag == "Pickup")
+            }
+            if (collision.TryGetComponent(out Pickup.Pickup pick))
+            {
+                CurrentPickup = pick;
                 Data.IsAnyPickupHere = true;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.tag == "Player")
+            if (CurrentPlayerObserver != null && collision.gameObject.Equals(CurrentPlayerObserver.gameObject))
+            {
+                CurrentPlayerObserver = null;
                 Data.IsAnyPlayerHere = false;
-            if (collision.tag == "Pickup")
+            }
+            if (CurrentPickup != null && collision.gameObject.Equals(CurrentPickup.gameObject))
             {
                 Data.IsAnyPickupHere = false;
                 PickupManager.OnPickupPicked();

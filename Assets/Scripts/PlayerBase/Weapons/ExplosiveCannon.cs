@@ -1,7 +1,5 @@
 using MazeWar.PlayerBase.Weapons.Base;
 using MazeWar.PlayerBase.Weapons.Shells;
-using System;
-using UnityEngine;
 
 namespace MazeWar.PlayerBase.Weapons
 {

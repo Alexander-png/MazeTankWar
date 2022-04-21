@@ -8,6 +8,9 @@ namespace MazeWar.Pickup
 {
     public class Pickup : MonoBehaviour
     {
+        private bool OnCollisionWithPlayer = false;
+        private PlayerStateObserver CurrentPlayerObserver;
+
         [SerializeField]
         private SpriteRenderer Renderer;
 
@@ -38,25 +41,24 @@ namespace MazeWar.Pickup
             gameObject.SetActive(true);
         }
 
-        PlayerObjectObserver CurrentPlayerObserver;
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            // if collided with any of players (player layer id is 6)
-            // Try to set player weapon type on trigger stay to avoid multiple GetComponent calls.
-            if (collision.gameObject.layer == 6)
-                CurrentPlayerObserver = collision.gameObject.GetComponent<PlayerObjectObserver>();
+            OnCollisionWithPlayer = collision.gameObject.TryGetComponent(out CurrentPlayerObserver);
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.gameObject.layer == 6 && CurrentPlayerObserver.SetWeapon(Data.WeaponType))
+            if (OnCollisionWithPlayer && CurrentPlayerObserver.SetWeapon(Data.WeaponType))
                 DestroySelf();
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.gameObject.layer == 6)
+            if (OnCollisionWithPlayer && collision.gameObject.Equals(CurrentPlayerObserver.gameObject))
+            {
                 CurrentPlayerObserver = null;
+                OnCollisionWithPlayer = false;
+            } 
         }
 
         private void DestroySelf()

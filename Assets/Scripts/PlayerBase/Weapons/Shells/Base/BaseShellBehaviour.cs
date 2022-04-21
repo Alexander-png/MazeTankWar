@@ -1,4 +1,5 @@
 using MazeWar.Base;
+using MazeWar.PlayerBase.Observer;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -63,9 +64,9 @@ namespace MazeWar.PlayerBase.Weapons.Shells.Base
 
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.TryGetComponent(out PlayerStateObserver observer))
             {
-                collision.gameObject.SetActive(false);
+                observer.IsAlive = false;
                 DoActionsAndDestroySelf(true);
             }
         }

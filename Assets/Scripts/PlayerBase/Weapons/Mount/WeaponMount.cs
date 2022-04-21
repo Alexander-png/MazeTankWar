@@ -2,7 +2,6 @@ using MazeWar.Base;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace MazeWar.PlayerBase.Weapons.Mount
 {

@@ -1,4 +1,5 @@
 using MazeWar.MazeComponents;
+using MazeWar.PlayerBase.Observer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace MazeWar.Base
         [SerializeField]
         private Camera Camera;
         [SerializeField]
-        private GameObject[] Players;
+        private PlayerStateObserver[] Players;
 
         public float RoundRestartTime = 3f;
 
@@ -62,14 +63,12 @@ namespace MazeWar.Base
             RestartRound();
         }
 
-        private void AddScoreToAlivePlayers()
+        private void AddScoreToAlivePlayer()
         {
             for (int i = 0; i < Players.Length; i++)
             {
-                if (Players[i].activeInHierarchy)
-                {
-                    // Todo: add score to him
-                }
+                if (Players[i].IsAlive)
+                    Players[i].Score += 1;
             }
         }
 
@@ -78,7 +77,7 @@ namespace MazeWar.Base
             InGame = false;
             PickupManager.StopSpawningPickups();
             OnRoundRestart?.Invoke(this, EventArgs.Empty);
-            AddScoreToAlivePlayers();
+            AddScoreToAlivePlayer();
             PlayersAliveCount = 0;
             if (MazeHead != null)
                 ClearMaze();
@@ -159,7 +158,7 @@ namespace MazeWar.Base
                         {
                             Players[i].transform.position = cell.ThisCell.transform.position;
                             Players[i].transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 361)));
-                            Players[i].SetActive(true);
+                            Players[i].IsAlive = true;
                             PlayersAliveCount += 1;
                             playerCorrdsMap.Add(new Tuple<int, int>(randX, randY));
                             break;

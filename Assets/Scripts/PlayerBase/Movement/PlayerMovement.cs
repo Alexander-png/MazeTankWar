@@ -51,7 +51,7 @@ namespace MazeWar.PlayerBase.Movement
         }
 
         #region Input logic
-        // Using Axis vals because listening input action in Dynamic update, but
+        // Using Axis vals because listening input actions in Dynamic update, but
         // moving physical body in FixedUpdate.
         public void OnMove(InputValue input)
         {
