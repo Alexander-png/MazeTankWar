@@ -1,4 +1,5 @@
 using MazeWar.MazeComponents;
+using MazeWar.MazeComponents.Base;
 using MazeWar.PlayerBase.Observer;
 using System;
 using System.Collections;
@@ -15,15 +16,20 @@ namespace MazeWar.Base
         public bool InGame { get; private set; } = false;
         public MazeCellData MazeHead { get; private set; }
         public EventHandler<EventArgs> OnRoundRestart;
-        public Generator MazeGenerator;
 
-        public PickupManager PickupManager;
+        [SerializeField]
+        private MazeGenerator _mazeGenerator;
+        [SerializeField]
+        private PickupManager _pickupManager;
         [SerializeField]
         private Camera Camera;
         [SerializeField]
         private PlayerStateObserver[] Players;
+        [SerializeField]
+        private float _roundRestartTime = 3f;
 
-        public float RoundRestartTime = 3f;
+        public MazeGenerator MazeGenerator => _mazeGenerator;
+        public PickupManager PickupManager => _pickupManager;
 
         private int _PlayersAliveCount;
         public int PlayersAliveCount
@@ -38,7 +44,7 @@ namespace MazeWar.Base
                     {
                         if (RestartRoundCoroutine != null)
                             StopCoroutine(RestartRoundCoroutine);
-                        RestartRoundCoroutine = StartCoroutine(RestartRoundDelay(RoundRestartTime));
+                        RestartRoundCoroutine = StartCoroutine(RestartRoundDelay(_roundRestartTime));
                     }
                 }
             }
@@ -48,7 +54,7 @@ namespace MazeWar.Base
         {
             GlobalManager = GlobalManager.Instance;
             GlobalManager.GameplayManager = this;
-            PickupManager.Init();
+            _pickupManager.Init();
         }
 
         private Coroutine RestartRoundCoroutine;
@@ -75,16 +81,16 @@ namespace MazeWar.Base
         private void RestartRound()
         {
             InGame = false;
-            PickupManager.StopSpawningPickups();
+            _pickupManager.StopSpawningPickups();
             OnRoundRestart?.Invoke(this, EventArgs.Empty);
             AddScoreToAlivePlayer();
             PlayersAliveCount = 0;
             if (MazeHead != null)
                 ClearMaze();
-            MazeHead = MazeGenerator.GenerateMaze();
+            MazeHead = _mazeGenerator.GenerateMaze();
             CenterCameraAndZoom();
             MovePlayersToRandomCell();
-            PickupManager.StartSpawninigPickups();
+            _pickupManager.StartSpawninigPickups();
             InGame = true;
         }
 
@@ -95,7 +101,7 @@ namespace MazeWar.Base
 
         private void ClearMaze()
         {
-            List<MazeCellData> firstRow = new List<MazeCellData>(MazeGenerator.LastCellCountInRow);
+            List<MazeCellData> firstRow = new List<MazeCellData>(_mazeGenerator.LastCellCountInRow);
             MazeCellData currentCell = MazeHead;
             while (true)
             {
@@ -104,7 +110,7 @@ namespace MazeWar.Base
                 firstRow.Add(currentCell);
                 currentCell = currentCell.GetNext(Direction.Right);
             }
-            Stack<MazeCellData> col = new Stack<MazeCellData>(MazeGenerator.LastCellCountInColumn);
+            Stack<MazeCellData> col = new Stack<MazeCellData>(_mazeGenerator.LastCellCountInColumn);
             for (int i = 0; i < firstRow.Count; i++)
             {
                 MazeCellData currCell = firstRow[i];
@@ -122,18 +128,18 @@ namespace MazeWar.Base
 
         private void CenterCameraAndZoom()
         {
-            int cellsInRow = MazeGenerator.LastCellCountInRow;
-            int cellsInCol = MazeGenerator.LastCellCountInColumn;
+            int cellsInRow = _mazeGenerator.LastCellCountInRow;
+            int cellsInCol = _mazeGenerator.LastCellCountInColumn;
 
-            float mazeWidth = cellsInRow * MazeGenerator.CellSize;
-            float mazeHeight = cellsInCol * MazeGenerator.CellSize;
-            float newCameraX = mazeWidth / 2 + MazeGenerator.HeadCellPosition.x;
-            float newCameraY = -(mazeHeight / 2 + MazeGenerator.HeadCellPosition.y);
+            float mazeWidth = cellsInRow * _mazeGenerator.CellSize;
+            float mazeHeight = cellsInCol * _mazeGenerator.CellSize;
+            float newCameraX = mazeWidth / 2 + _mazeGenerator.HeadCellPosition.x;
+            float newCameraY = -(mazeHeight / 2 + _mazeGenerator.HeadCellPosition.y);
 
             // Adding this radius because center of the maze cell is in the center of its sprite, 
             // but not on top left corner.
-            float cellCenterToEdgeRadius = MazeGenerator.CellSize / 2;
-            Camera.transform.position = new Vector3(newCameraX - cellCenterToEdgeRadius, newCameraY + cellCenterToEdgeRadius, -Mathf.Max(cellsInRow, cellsInCol) * MazeGenerator.CellSize);
+            float cellCenterToEdgeRadius = _mazeGenerator.CellSize / 2;
+            Camera.transform.position = new Vector3(newCameraX - cellCenterToEdgeRadius, newCameraY + cellCenterToEdgeRadius, -Mathf.Max(cellsInRow, cellsInCol) * _mazeGenerator.CellSize);
         }
 
         private void MovePlayersToRandomCell()
@@ -149,9 +155,9 @@ namespace MazeWar.Base
                 {
                     while (true)
                     {
-                        randX = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInRow);
-                        randY = UnityEngine.Random.Range(0, MazeGenerator.LastCellCountInColumn);
-                        cell = MazeCellData.GetCell(MazeHead, randX, randY, MazeGenerator.LastCellCountInColumn, MazeGenerator.LastCellCountInRow);
+                        randX = UnityEngine.Random.Range(0, _mazeGenerator.LastCellCountInRow);
+                        randY = UnityEngine.Random.Range(0, _mazeGenerator.LastCellCountInColumn);
+                        cell = MazeCellData.GetCell(MazeHead, randX, randY, _mazeGenerator.LastCellCountInColumn, _mazeGenerator.LastCellCountInRow);
 
                         Tuple<int, int> match = playerCorrdsMap.Find(c => c.Item1 == randX && c.Item2 == randY);
                         if (match == null)

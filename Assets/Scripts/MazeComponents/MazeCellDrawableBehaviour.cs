@@ -9,10 +9,12 @@ namespace MazeWar.MazeComponents
 
     public class MazeCellData
     {
-        private MazeCellData TopNext = null;
-        private MazeCellData LeftNext = null;
-        private MazeCellData RightNext = null;
-        private MazeCellData BottomNext = null;
+        private MazeCellDrawableBehaviour _thisCell = null;
+
+        private MazeCellData _topNext = null;
+        private MazeCellData _leftNext = null;
+        private MazeCellData _rightNext = null;
+        private MazeCellData _bottomNext = null;
 
         public bool HasTopWall { get; private set; } = true;
         public bool HasLeftWall { get; private set; } = true;
@@ -23,16 +25,15 @@ namespace MazeWar.MazeComponents
         public bool LeftWallBuilt = false;
         public bool RightWallBuilt = false;
         public bool BottomWallBuilt = false;
-
-        private MazeCellDrawableBehaviour _ThisCell = null;
+        
         public MazeCellDrawableBehaviour ThisCell
         {
-            get => _ThisCell;
+            get => _thisCell;
             set
             {
-                if (_ThisCell != null)
+                if (_thisCell != null)
                     throw new InvalidOperationException("Maze cell data can only be set once.");
-                _ThisCell = value;
+                _thisCell = value;
             }
         }
 
@@ -54,32 +55,32 @@ namespace MazeWar.MazeComponents
             switch (dir)
             {
                 case Direction.Up:
-                    if (TopNext != null)
-                        TopNext.BottomNext = null;
-                    TopNext = next;
-                    if (TopNext != null)
-                        TopNext.BottomNext = this;
+                    if (_topNext != null)
+                        _topNext._bottomNext = null;
+                    _topNext = next;
+                    if (_topNext != null)
+                        _topNext._bottomNext = this;
                     break;
                 case Direction.Left:
-                    if (LeftNext != null)
-                        LeftNext.RightNext = null;
-                    LeftNext = next;
-                    if (LeftNext != null)
-                        LeftNext.RightNext = this;
+                    if (_leftNext != null)
+                        _leftNext._rightNext = null;
+                    _leftNext = next;
+                    if (_leftNext != null)
+                        _leftNext._rightNext = this;
                     break;
                 case Direction.Right:
-                    if (RightNext != null)
-                        RightNext.LeftNext = null;
-                    RightNext = next;
-                    if (RightNext != null)
-                        RightNext.LeftNext = this;
+                    if (_rightNext != null)
+                        _rightNext._leftNext = null;
+                    _rightNext = next;
+                    if (_rightNext != null)
+                        _rightNext._leftNext = this;
                     break;
                 case Direction.Down:
-                    if (BottomNext != null)
-                        BottomNext.TopNext = null;
-                    BottomNext = next;
-                    if (BottomNext != null)
-                        BottomNext.TopNext = this;
+                    if (_bottomNext != null)
+                        _bottomNext._topNext = null;
+                    _bottomNext = next;
+                    if (_bottomNext != null)
+                        _bottomNext._topNext = this;
                     break;
                 default:
                     throw new ArgumentException($"Not defined value: {dir}");
@@ -91,13 +92,13 @@ namespace MazeWar.MazeComponents
             switch (dir)
             {
                 case Direction.Up:
-                    return TopNext;
+                    return _topNext;
                 case Direction.Left:
-                    return LeftNext;
+                    return _leftNext;
                 case Direction.Right:
-                    return RightNext;
+                    return _rightNext;
                 case Direction.Down:
-                    return BottomNext;
+                    return _bottomNext;
             }
             throw new ArgumentException($"Not defined value: {dir}");
         }

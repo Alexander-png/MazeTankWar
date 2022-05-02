@@ -18,7 +18,8 @@ namespace MazeWar.PlayerBase.Weapons.Shells.Fragments
         [SerializeField]
         private float RotationSpeed;
 
-        public float LifeTime = 15;
+        [SerializeField]
+        private float LifeTime = 15;
 
         private void Awake()
         {

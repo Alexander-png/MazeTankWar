@@ -1,9 +1,10 @@
+using MazeWar.MazeComponents.Base;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MazeWar.MazeComponents
 {
-    public class Generator : MonoBehaviour
+    public class WilsonMazeGenerator : MazeGenerator
     {
         [SerializeField]
         private int MaxMazeXSize;
@@ -13,18 +14,17 @@ namespace MazeWar.MazeComponents
         private int MaxMazeYSize;
         [SerializeField]
         private int MinMazeYSize;
-
         [SerializeField]
         private GameObject MazeCellDrawablePrefab;
         [SerializeField]
-        public Vector3 HeadCellPosition;
+        private Vector3 _headCellPosition;
         [SerializeField]
-        public float CellSize;
+        private float _cellSize;
 
-        public int LastCellCountInRow { get; private set; }
-        public int LastCellCountInColumn { get; private set; }
+        public override Vector3 HeadCellPosition => _headCellPosition;
+        public override float CellSize => _cellSize;
 
-        public MazeCellData GenerateMaze()
+        public override MazeCellData GenerateMaze()
         {
             MazeCellData head = GenerateMazeData();
             Vector3 currentPosition = HeadCellPosition;
