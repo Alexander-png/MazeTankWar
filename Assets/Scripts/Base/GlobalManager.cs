@@ -1,4 +1,5 @@
 //https://www.google.com/search?q=Unity+best+Singleton&sa=X&ved=2ahUKEwieqdyn1MP2AhURyYsKHTXcCrkQ1QJ6BAgwEAE&biw=2560&bih=1329&dpr=1
+using MazeWar.Base.Abstractions;
 using System;
 using UnityEngine;
 
@@ -8,8 +9,8 @@ namespace MazeWar.Base
     {
         public static EventHandler<EventArgs> OnGameplayManagerAppeared;
 
-        private static GameplayManager _GameplayManager = null;
-        public static GameplayManager GameplayManager
+        private static AbstractGameplayManager _GameplayManager = null;
+        public static AbstractGameplayManager GameplayManager
         { 
             get => _GameplayManager;
             set

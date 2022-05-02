@@ -21,10 +21,10 @@ namespace MazeWar.MazeComponents
         public bool HasRightWall { get; private set; } = true;
         public bool HasBottomWall { get; private set; } = true;
 
-        public bool TopWallBuilt = false;
-        public bool LeftWallBuilt = false;
-        public bool RightWallBuilt = false;
-        public bool BottomWallBuilt = false;
+        public bool TopWallBuilt { get; set; } = false;
+        public bool LeftWallBuilt { get; set; } = false;
+        public bool RightWallBuilt { get; set; } = false;
+        public bool BottomWallBuilt { get; set; } = false;
         
         public MazeCellDrawableBehaviour ThisCell
         {
@@ -37,15 +37,15 @@ namespace MazeWar.MazeComponents
             }
         }
 
-        public bool IsAnyPlayerHere = false;
-        public bool IsAnyPickupHere = false;
+        public bool IsAnyPlayerHere { get; set; } = false;
+        public bool IsAnyPickupHere { get; set; } = false;
 
-        public static MazeCellData GetCell(MazeCellData mazeHead, int colNumber, int rowNumber, int cellsInCol, int cellsInRow)
+        public static MazeCellData GetCell(MazeCellData origin, int colOffset, int rowOffset, int colRange, int rowRange)
         {
-            MazeCellData res = mazeHead;
-            for (int i = 0; i < colNumber && i < cellsInRow - 1 && res != null; i++)
+            MazeCellData res = origin;
+            for (int i = 0; i < colOffset && i < rowRange - 1 && res != null; i++)
                 res = res.GetNext(Direction.Right);
-            for (int i = 0; i < rowNumber && i < cellsInCol - 1 && res != null; i++)
+            for (int i = 0; i < rowOffset && i < colRange - 1 && res != null; i++)
                 res = res.GetNext(Direction.Down);
             return res;
         }
@@ -173,25 +173,19 @@ namespace MazeWar.MazeComponents
 
     public class MazeCellDrawableBehaviour : MonoBehaviour
     {
-        private PickupManager PickupManager;
-        private PlayerStateObserver CurrentPlayerObserver;
-        private Pickup.Pickup CurrentPickup;
+        private PlayerStateObserver _currentPlayerObserver;
+        private Pickup.Pickup _currentPickup;
 
         [SerializeField]
-        private GameObject TopWall;
+        private GameObject _topWall;
         [SerializeField]
-        private GameObject LeftWall;
+        private GameObject _leftWall;
         [SerializeField]
-        private GameObject RightWall;
+        private GameObject _rightWall;
         [SerializeField]
-        private GameObject BottomWall;
+        private GameObject _bottomWall;
 
         public MazeCellData Data { get; private set; }
-
-        private void Awake()
-        {
-            PickupManager = GlobalManager.GameplayManager.PickupManager;
-        }
 
         public void SetCellData(MazeCellData data, float cellSize)
         {
@@ -207,25 +201,25 @@ namespace MazeWar.MazeComponents
             MazeCellData cachedCellData = Data.GetNext(Direction.Up);
             if (Data.HasTopWall && (cachedCellData == null || (cachedCellData.HasBottomWall && !cachedCellData.BottomWallBuilt)))
             {
-                TopWall.SetActive(true);
+                _topWall.SetActive(true);
                 Data.TopWallBuilt = true;
             }
             cachedCellData = Data.GetNext(Direction.Left);
             if (Data.HasLeftWall && (cachedCellData == null || (cachedCellData.HasRightWall && !cachedCellData.RightWallBuilt)))
             {
-                LeftWall.SetActive(true);
+                _leftWall.SetActive(true);
                 Data.LeftWallBuilt = true;
             }
             cachedCellData = Data.GetNext(Direction.Right);
             if (Data.HasRightWall && (cachedCellData == null || (cachedCellData.HasLeftWall && !cachedCellData.LeftWallBuilt)))
             {
-                RightWall.SetActive(true);
+                _rightWall.SetActive(true);
                 Data.RightWallBuilt = true;
             }
             cachedCellData = Data.GetNext(Direction.Down);
             if (Data.HasBottomWall && (cachedCellData == null || (cachedCellData.HasTopWall && !cachedCellData.TopWallBuilt)))
             {
-                BottomWall.SetActive(true);
+                _bottomWall.SetActive(true);
                 Data.BottomWallBuilt = true;
             }
         }
@@ -234,27 +228,26 @@ namespace MazeWar.MazeComponents
         {
             if (collision.TryGetComponent(out PlayerStateObserver observer))
             {
-                CurrentPlayerObserver = observer;
+                _currentPlayerObserver = observer;
                 Data.IsAnyPlayerHere = true;
             }
             if (collision.TryGetComponent(out Pickup.Pickup pick))
             {
-                CurrentPickup = pick;
+                _currentPickup = pick;
                 Data.IsAnyPickupHere = true;
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (CurrentPlayerObserver != null && collision.gameObject.Equals(CurrentPlayerObserver.gameObject))
+            if (_currentPlayerObserver != null && collision.gameObject.Equals(_currentPlayerObserver.gameObject))
             {
-                CurrentPlayerObserver = null;
+                _currentPlayerObserver = null;
                 Data.IsAnyPlayerHere = false;
             }
-            if (CurrentPickup != null && collision.gameObject.Equals(CurrentPickup.gameObject))
+            if (_currentPickup != null && collision.gameObject.Equals(_currentPickup.gameObject))
             {
                 Data.IsAnyPickupHere = false;
-                PickupManager.OnPickupPicked();
             }
         }
     }

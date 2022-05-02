@@ -1,3 +1,4 @@
+using MazeWar.Base.Abstractions;
 using MazeWar.MazeComponents;
 using MazeWar.MazeComponents.Base;
 using MazeWar.PlayerBase.Observer;
@@ -10,61 +11,62 @@ using UnityEngine;
 
 namespace MazeWar.Base
 {
-    public class GameplayManager : MonoBehaviour
+    public class GameplayManager : AbstractGameplayManager
     {
-        private GlobalManager GlobalManager;
-        public bool InGame { get; private set; } = false;
-        public MazeCellData MazeHead { get; private set; }
-        public EventHandler<EventArgs> OnRoundRestart;
+        private GlobalManager _globalManager;
+        private MazeCellData _mazeHead;
+        private Coroutine _restartRoundCoroutine;
 
         [SerializeField]
         private MazeGenerator _mazeGenerator;
         [SerializeField]
         private PickupManager _pickupManager;
         [SerializeField]
-        private Camera Camera;
+        private Camera _camera;
         [SerializeField]
-        private PlayerStateObserver[] Players;
+        private PlayerStateObserver[] _players;
         [SerializeField]
         private float _roundRestartTime = 3f;
 
-        public MazeGenerator MazeGenerator => _mazeGenerator;
+        public override MazeGenerator MazeGenerator => _mazeGenerator;
         public PickupManager PickupManager => _pickupManager;
+        public override MazeCellData MazeHead => _mazeHead;
 
-        private int _PlayersAliveCount;
-        public int PlayersAliveCount
-        {
-            get => _PlayersAliveCount;
-            private set
+        public override int PlayersAliveCount
+        { 
+            get
             {
-                _PlayersAliveCount = value;
-                if (InGame)
-                {
-                    if (_PlayersAliveCount <= 1)
-                    {
-                        if (RestartRoundCoroutine != null)
-                            StopCoroutine(RestartRoundCoroutine);
-                        RestartRoundCoroutine = StartCoroutine(RestartRoundDelay(_roundRestartTime));
-                    }
-                }
+                int count = 0;
+                for (int i = 0; i < _players.Length; i++)
+                    if (_players[i].IsAlive)
+                        count += 1;
+                return count;
+            }
+        }
+
+        public override PlayerStateObserver[] Players
+        {
+            get
+            {
+                PlayerStateObserver[] ret = new PlayerStateObserver[_players.Length];
+                _players.CopyTo(ret, 0);
+                return ret;
             }
         }
 
         private void Start()
         {
-            GlobalManager = GlobalManager.Instance;
+            _globalManager = GlobalManager.Instance;
             GlobalManager.GameplayManager = this;
             _pickupManager.Init();
         }
 
-        private Coroutine RestartRoundCoroutine;
         private IEnumerator RestartRoundDelay(float delay)
         {
-            WaitForEndOfFrame wait = new WaitForEndOfFrame();
             while (delay > 0)
             {
                 delay -= Time.deltaTime;
-                yield return wait;
+                yield return new WaitForEndOfFrame();
             }
             RestartRound();
         }
@@ -84,10 +86,9 @@ namespace MazeWar.Base
             _pickupManager.StopSpawningPickups();
             OnRoundRestart?.Invoke(this, EventArgs.Empty);
             AddScoreToAlivePlayer();
-            PlayersAliveCount = 0;
             if (MazeHead != null)
                 ClearMaze();
-            MazeHead = _mazeGenerator.GenerateMaze();
+            _mazeHead = _mazeGenerator.GenerateMaze();
             CenterCameraAndZoom();
             MovePlayersToRandomCell();
             _pickupManager.StartSpawninigPickups();
@@ -96,7 +97,15 @@ namespace MazeWar.Base
 
         public void OnPlayerKilled()
         {
-            PlayersAliveCount -= 1;
+            if (InGame)
+            {
+                if (PlayersAliveCount <= 1)
+                {
+                    if (_restartRoundCoroutine != null)
+                        StopCoroutine(_restartRoundCoroutine);
+                    _restartRoundCoroutine = StartCoroutine(RestartRoundDelay(_roundRestartTime));
+                }
+            }
         }
 
         private void ClearMaze()
@@ -139,7 +148,7 @@ namespace MazeWar.Base
             // Adding this radius because center of the maze cell is in the center of its sprite, 
             // but not on top left corner.
             float cellCenterToEdgeRadius = _mazeGenerator.CellSize / 2;
-            Camera.transform.position = new Vector3(newCameraX - cellCenterToEdgeRadius, newCameraY + cellCenterToEdgeRadius, -Mathf.Max(cellsInRow, cellsInCol) * _mazeGenerator.CellSize);
+            _camera.transform.position = new Vector3(newCameraX - cellCenterToEdgeRadius, newCameraY + cellCenterToEdgeRadius, -Mathf.Max(cellsInRow, cellsInCol) * _mazeGenerator.CellSize);
         }
 
         private void MovePlayersToRandomCell()
@@ -165,7 +174,6 @@ namespace MazeWar.Base
                             Players[i].transform.position = cell.ThisCell.transform.position;
                             Players[i].transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 361)));
                             Players[i].IsAlive = true;
-                            PlayersAliveCount += 1;
                             playerCorrdsMap.Add(new Tuple<int, int>(randX, randY));
                             break;
                         }

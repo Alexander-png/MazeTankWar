@@ -11,6 +11,8 @@ namespace MazeWar.Pickup
         private bool OnCollisionWithPlayer = false;
         private PlayerStateObserver CurrentPlayerObserver;
 
+        public event OnBonusPickedEvent OnPicked;
+
         [SerializeField]
         private SpriteRenderer Renderer;
 
@@ -49,7 +51,10 @@ namespace MazeWar.Pickup
         private void OnTriggerStay2D(Collider2D collision)
         {
             if (OnCollisionWithPlayer && CurrentPlayerObserver.SetWeapon(Data.WeaponType))
+            {
+                OnPicked?.Invoke();
                 DestroySelf();
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -63,9 +68,13 @@ namespace MazeWar.Pickup
 
         private void DestroySelf()
         {
+            OnPicked = null;
+
             GlobalManager.GameplayManager.OnRoundRestart -= OnRoundRestart;
             Destroy(gameObject);
         }
+
+        public delegate void OnBonusPickedEvent();
     }
 }
 

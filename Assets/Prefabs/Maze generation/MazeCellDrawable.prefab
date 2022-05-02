@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 941610643314441074}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &941610642670848890
 SpriteRenderer:
@@ -142,9 +142,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 941610644315997347}
   - {fileID: 941610643976061371}
   - {fileID: 941610642670848889}
-  - {fileID: 941610644315997347}
   - {fileID: 941610644114432425}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -213,10 +213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720ac60b435885f4bac257068517a7cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TopWall: {fileID: 941610644315997346}
-  LeftWall: {fileID: 941610643976061370}
-  RightWall: {fileID: 941610642670848888}
-  BottomWall: {fileID: 941610644114432424}
+  _topWall: {fileID: 941610644315997346}
+  _leftWall: {fileID: 941610643976061370}
+  _rightWall: {fileID: 941610642670848888}
+  _bottomWall: {fileID: 941610644114432424}
 --- !u!61 &2716864305367147834
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 941610643314441074}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &941610643976061348
 SpriteRenderer:
@@ -496,7 +496,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 941610643314441074}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &941610644315997356
 SpriteRenderer:

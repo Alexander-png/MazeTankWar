@@ -1,3 +1,4 @@
+using MazeWar.Base.Abstractions;
 using MazeWar.MazeComponents;
 using MazeWar.Pickup.Scriptable;
 using System.Collections;
@@ -7,34 +8,34 @@ namespace MazeWar.Base
 {
     public class PickupManager : MonoBehaviour
     {
-        private GameplayManager GameplayManager;
-        private int PossiblePickupCountInTheMaze;
-        private int CurrentPickupCountInTheMaze;
+        private AbstractGameplayManager _gameplayManager;
+        private int _possiblePickupCountInTheMaze;
+        private int _currentPickupCountInTheMaze;
 
         [SerializeField]
-        private Pickup.Pickup PickupPrefab;
+        private Pickup.Pickup _pickupPrefab;
         [SerializeField]
-        private PickupData[] DataPickups;
+        private PickupData[] _pataPickups;
         [SerializeField]
-        private float PickupSpawnDelay;
+        private float _pickupSpawnDelay;
 
-        private Coroutine PickupSpawningRepeatCoroutine;
+        private Coroutine _pickupSpawningRepeatCoroutine;
 
         public void Init()
         {
-            GameplayManager = GlobalManager.GameplayManager;
+            _gameplayManager = GlobalManager.GameplayManager;
         }
 
         public void StartSpawninigPickups()
         {
-            PossiblePickupCountInTheMaze = GameplayManager.MazeGenerator.LastCellCountInRow * GameplayManager.MazeGenerator.LastCellCountInColumn - GameplayManager.PlayersAliveCount;
-            PickupSpawningRepeatCoroutine = StartCoroutine(SpawnPickupsDelay(PickupSpawnDelay));
+            _possiblePickupCountInTheMaze = _gameplayManager.MazeGenerator.LastCellCountInRow * _gameplayManager.MazeGenerator.LastCellCountInColumn - _gameplayManager.PlayersAliveCount;
+            _pickupSpawningRepeatCoroutine = StartCoroutine(SpawnPickupsDelay(_pickupSpawnDelay));
         }
 
         public void StopSpawningPickups()
         {
-            if (PickupSpawningRepeatCoroutine != null)
-                StopCoroutine(PickupSpawningRepeatCoroutine);
+            if (_pickupSpawningRepeatCoroutine != null)
+                StopCoroutine(_pickupSpawningRepeatCoroutine);
         }
 
         private IEnumerator SpawnPickupsDelay(float delay)
@@ -42,25 +43,26 @@ namespace MazeWar.Base
             int randX;
             int randY;
             int randomPickupDataIndex;
-            int lastCellCountinRow = GameplayManager.MazeGenerator.LastCellCountInRow;
-            int lastCellCountinColumn = GameplayManager.MazeGenerator.LastCellCountInColumn;
+            int lastCellCountinRow = _gameplayManager.MazeGenerator.LastCellCountInRow;
+            int lastCellCountinColumn = _gameplayManager.MazeGenerator.LastCellCountInColumn;
 
             MazeCellData cell;
             while (true)
             {
                 yield return new WaitForSeconds(delay);
-                while (true && CurrentPickupCountInTheMaze < PossiblePickupCountInTheMaze)
+                if (_currentPickupCountInTheMaze < _possiblePickupCountInTheMaze)
                 {
                     randX = Random.Range(0, lastCellCountinRow);
                     randY = Random.Range(0, lastCellCountinColumn);
-                    cell = MazeCellData.GetCell(GameplayManager.MazeHead, randX, randY, lastCellCountinColumn, lastCellCountinRow);
+                    cell = MazeCellData.GetCell(_gameplayManager.MazeHead, randX, randY, lastCellCountinColumn, lastCellCountinRow);
                     if (!cell.IsAnyPickupHere && !cell.IsAnyPlayerHere)
                     {
                         //randomPickupDataIndex = Random.Range(0, DataPickups.Length);
                         randomPickupDataIndex = 2; // Debug
-                        Instantiate(PickupPrefab, cell.ThisCell.transform).GetComponent<Pickup.Pickup>().SetPickupData(DataPickups[randomPickupDataIndex]);
-                        CurrentPickupCountInTheMaze += 1;
-                        break;
+                        Pickup.Pickup pick = Instantiate(_pickupPrefab, cell.ThisCell.transform).GetComponent<Pickup.Pickup>();
+                        pick.SetPickupData(_pataPickups[randomPickupDataIndex]);
+                        pick.OnPicked += OnPickupPicked;
+                        _currentPickupCountInTheMaze += 1;
                     }
                 }
             }
@@ -68,7 +70,7 @@ namespace MazeWar.Base
 
         public void OnPickupPicked()
         {
-            CurrentPickupCountInTheMaze -= 1;
+            _currentPickupCountInTheMaze -= 1;
         }
     }
 }
