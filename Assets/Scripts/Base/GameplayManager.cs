@@ -14,6 +14,7 @@ namespace MazeWar.Base
         private GlobalManager _globalManager;
         private MazeCellData _mazeHead;
         private Coroutine _restartRoundCoroutine;
+        private PlayerStateObserver[] _players;
 
         [SerializeField]
         private MazeGenerator _mazeGenerator;
@@ -22,7 +23,8 @@ namespace MazeWar.Base
         [SerializeField]
         private Camera _camera;
         [SerializeField]
-        private PlayerStateObserver[] _players;
+        private Transform _playerContainerTransfrom;
+
         [SerializeField]
         private float _roundRestartTime = 3f;
 
@@ -57,6 +59,17 @@ namespace MazeWar.Base
             _globalManager = GlobalManager.Instance;
             GlobalManager.GameplayManager = this;
             _pickupManager.Init();
+            Initialized();
+        }
+
+        private void Initialized()
+        {
+            _players = new PlayerStateObserver[_playerContainerTransfrom.childCount];
+            for (int i = 0; i < _players.Length; i++)
+            {
+                _players[i] = _playerContainerTransfrom.GetChild(i).GetComponent<PlayerStateObserver>();
+                _players[i].OnKilled += OnPlayerKilled;
+            }   
         }
 
         private IEnumerator RestartRoundDelay(float delay)
@@ -93,10 +106,11 @@ namespace MazeWar.Base
             InGame = true;
         }
 
-        public void OnPlayerKilled()
+        public void OnPlayerKilled(PlayerStateObserver sender)
         {
             if (InGame)
             {
+                sender.PlayExplosionAnimation();
                 if (PlayersAliveCount <= 1)
                 {
                     if (_restartRoundCoroutine != null)

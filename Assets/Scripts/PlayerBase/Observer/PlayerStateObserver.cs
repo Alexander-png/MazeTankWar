@@ -10,58 +10,57 @@ namespace MazeWar.PlayerBase.Observer
     [RequireComponent(typeof(SpriteRenderer))]
     public class PlayerStateObserver : MonoBehaviour
     {
-        private bool _IsAlive;
+        private bool _isAlive;
 
         [SerializeField]
-        private GameplayManager GameplayManager;
+        private Color _playerColor;
         [SerializeField]
-        private WeaponMount PlayerWeaponMount;
+        private WeaponMount _weaponMount;
         [SerializeField]
-        private SpriteRenderer SpriteRenderer;
+        private SpriteRenderer _spriteRenderer;
 
         public bool IsAlive
         {
-            get => _IsAlive;
+            get => _isAlive;
             set
             {
-                _IsAlive = value;
-                if (!_IsAlive)
-                {
-                    if (GameplayManager != null)
-                    {
-                        if (GameplayManager.InGame)
-                            GameplayManager.OnPlayerKilled();
-                        else
-                            PlayExplosionAnimation();
-                    }
-                }
-                gameObject.SetActive(_IsAlive);
+                _isAlive = value;
+                if (!_isAlive)
+                    OnKilled?.Invoke(this);
+                gameObject.SetActive(_isAlive);
             }
         }
 
-        [NonSerialized]
-        public int Score;
+        public event KilledEvent OnKilled;
 
-        public Color PlayerColor;
+        public int Score { get; set; }
+        public Color PlayerColor => _playerColor;
+
+        private void OnValidate()
+        {
+            _spriteRenderer.color = PlayerColor;
+        }
 
         private void Start()
         {
-            SpriteRenderer.color = PlayerColor;
+            _spriteRenderer.color = PlayerColor;
         }
 
         public bool SetWeapon(WeaponTypes wType)
         {
-            return PlayerWeaponMount.SetCurrentWeapon(wType);
+            return _weaponMount.SetCurrentWeapon(wType);
         }
 
         private void OnShoot(InputValue input)
         {
-            PlayerWeaponMount.ShootButtonPressed = input.isPressed;
+            _weaponMount.ShootButtonPressed = input.isPressed;
         }
 
-        private void PlayExplosionAnimation()
+        public void PlayExplosionAnimation()
         {
             Debug.LogWarning("TODO: add explosion animation");
         }
+
+        public delegate void KilledEvent(PlayerStateObserver sender);
     }
 }

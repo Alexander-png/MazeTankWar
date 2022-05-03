@@ -14,13 +14,13 @@ namespace MazeWar.PlayerBase.Weapons.Mount
         [SerializeField]
         private WeaponTypes DefaultWeapon;
         [SerializeField]
-        private GameObject[] Weapons;
+        private Transform _weaponContainerTransform;
 
         private void Awake()
         {
-            for (int i = 0; i < Weapons.Length; i++)
+            for (int i = 0; i < _weaponContainerTransform.childCount; i++)
             {
-                IWeapon w = Weapons[i].GetComponent<IWeapon>();
+                IWeapon w = _weaponContainerTransform.GetChild(i).GetComponent<IWeapon>();
                 WeaponDict[w.WeaponType] = w;
                 w.OnWeaponCanBeSwitched += OnCurrentWeaponShooted;
             }

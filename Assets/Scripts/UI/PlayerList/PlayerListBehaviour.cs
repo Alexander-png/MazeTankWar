@@ -41,8 +41,8 @@ namespace MazeWar.UI.PlayerList
             _records.Clear();
 
             PlayerStateObserver[] players = _gameManager.Players;
-
             Array.Sort(players, (x, y) => -x.Score.CompareTo(y.Score));
+
             for (int i = 0; i < _showFirstCount && i < players.Length; i++)
             {
                 RecordTemplateDataContainer record = Instantiate(_recordTemplate, _recordContainer.transform).GetComponent<RecordTemplateDataContainer>();
