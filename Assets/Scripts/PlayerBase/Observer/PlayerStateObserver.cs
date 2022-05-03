@@ -1,9 +1,6 @@
-using MazeWar.Base;
+using MazeWar.PlayerBase.Assistance;
 using MazeWar.PlayerBase.Weapons;
-using MazeWar.PlayerBase.Weapons.Mount;
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace MazeWar.PlayerBase.Observer
 {
@@ -15,7 +12,7 @@ namespace MazeWar.PlayerBase.Observer
         [SerializeField]
         private Color _playerColor;
         [SerializeField]
-        private WeaponMount _weaponMount;
+        private WeaponMountLinker _weaponMountLinker;
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
 
@@ -48,12 +45,7 @@ namespace MazeWar.PlayerBase.Observer
 
         public bool SetWeapon(WeaponTypes wType)
         {
-            return _weaponMount.SetCurrentWeapon(wType);
-        }
-
-        private void OnShoot(InputValue input)
-        {
-            _weaponMount.ShootButtonPressed = input.isPressed;
+            return _weaponMountLinker.WeaponMount.SetCurrentWeapon(wType);
         }
 
         public void PlayExplosionAnimation()
