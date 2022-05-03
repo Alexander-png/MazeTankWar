@@ -7,8 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// todo: UI
-
 namespace MazeWar.Base
 {
     public class GameplayManager : AbstractGameplayManager
@@ -84,8 +82,8 @@ namespace MazeWar.Base
         {
             InGame = false;
             _pickupManager.StopSpawningPickups();
-            OnRoundRestart?.Invoke(this, EventArgs.Empty);
             AddScoreToAlivePlayer();
+            InvokeRestartRound();
             if (MazeHead != null)
                 ClearMaze();
             _mazeHead = _mazeGenerator.GenerateMaze();

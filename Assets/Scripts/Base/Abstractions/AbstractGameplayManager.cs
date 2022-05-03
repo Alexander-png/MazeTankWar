@@ -14,7 +14,11 @@ namespace MazeWar.Base.Abstractions
         public abstract int PlayersAliveCount { get; }
 
         public bool InGame { get; protected set; }
-        public EventHandler<EventArgs> OnRoundRestart;
+        public event RoundRestartEvent OnRoundRestart;
+
+        protected void InvokeRestartRound() => OnRoundRestart?.Invoke();
+
+        public delegate void RoundRestartEvent();
     }
 }
 

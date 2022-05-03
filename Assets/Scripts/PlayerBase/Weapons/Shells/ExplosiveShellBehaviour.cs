@@ -12,7 +12,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells
         [SerializeField]
         private int FragmentCount;
 
-        protected override void OnRoundRestart(object sender, EventArgs e)
+        protected override void OnRoundRestart()
         {
             DoActionsAndDestroySelf(false);
         }

@@ -23,7 +23,7 @@ namespace MazeWar.Pickup
             GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
         }
 
-        private void OnRoundRestart(object sender, EventArgs e)
+        private void OnRoundRestart()
         {
             DestroySelf();
         }

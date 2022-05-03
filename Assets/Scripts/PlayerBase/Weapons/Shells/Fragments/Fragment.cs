@@ -29,7 +29,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells.Fragments
             StartCoroutine(DestroySelfDelay(LifeTime));
         }
 
-        private void OnRoundRestart(object sender, EventArgs e)
+        private void OnRoundRestart()
         {
             DoActionsAndDestroySelf();
         }

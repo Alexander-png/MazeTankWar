@@ -45,7 +45,7 @@ namespace MazeWar.PlayerBase.Weapons.Mount
             GlobalManager.GameplayManager.OnRoundRestart += OnRoundRestart;
         }
 
-        private void OnRoundRestart(object sender, EventArgs e)
+        private void OnRoundRestart()
         {
             SetCurrentWeapon(DefaultWeapon, true);
         }

@@ -10,6 +10,8 @@ namespace MazeWar.PlayerBase.Observer
     [RequireComponent(typeof(SpriteRenderer))]
     public class PlayerStateObserver : MonoBehaviour
     {
+        private bool _IsAlive;
+
         [SerializeField]
         private GameplayManager GameplayManager;
         [SerializeField]
@@ -17,7 +19,6 @@ namespace MazeWar.PlayerBase.Observer
         [SerializeField]
         private SpriteRenderer SpriteRenderer;
 
-        private bool _IsAlive;
         public bool IsAlive
         {
             get => _IsAlive;

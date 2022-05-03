@@ -52,7 +52,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells.Base
             Destroy(gameObject);
         }
 
-        protected virtual void OnRoundRestart(object sender, EventArgs e)
+        protected virtual void OnRoundRestart()
         {
             DoActionsAndDestroySelf(false);
         }
