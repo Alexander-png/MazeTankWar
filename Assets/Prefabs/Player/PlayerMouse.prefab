@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1136494374104831135, guid: ae759b66293590f4cb0239ab1df92249, type: 3}
       propertyPath: m_Name
-      value: MousePlayer Variant
+      value: PlayerMouse
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1136494374104831130, guid: ae759b66293590f4cb0239ab1df92249, type: 3}
@@ -108,6 +108,7 @@ MonoBehaviour:
   RotationSpeed: 11000
   ForwardSpeed: 180
   BackwardSpeed: -90
+  _cursorStopDistance: 1.5
 --- !u!50 &1865331356646366213 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 1136494374104831131, guid: ae759b66293590f4cb0239ab1df92249, type: 3}

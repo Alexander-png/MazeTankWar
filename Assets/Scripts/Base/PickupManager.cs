@@ -24,6 +24,17 @@ namespace MazeWar.Base
         public void Init()
         {
             _gameplayManager = GlobalManager.GameplayManager;
+            _gameplayManager.OnRoundRestart += OnRoundRestart;
+        }
+
+        private void OnDisable()
+        {
+            _gameplayManager.OnRoundRestart -= OnRoundRestart;
+        }
+
+        private void OnRoundRestart()
+        {
+            _currentPickupCountInTheMaze = 0;
         }
 
         public void StartSpawninigPickups()
@@ -52,17 +63,21 @@ namespace MazeWar.Base
                 yield return new WaitForSeconds(delay);
                 if (_currentPickupCountInTheMaze < _possiblePickupCountInTheMaze)
                 {
-                    randX = Random.Range(0, lastCellCountinRow);
-                    randY = Random.Range(0, lastCellCountinColumn);
-                    cell = MazeCellData.GetCell(_gameplayManager.MazeHead, randX, randY, lastCellCountinColumn, lastCellCountinRow);
-                    if (!cell.IsAnyPickupHere && !cell.IsAnyPlayerHere)
+                    while (true)
                     {
-                        //randomPickupDataIndex = Random.Range(0, DataPickups.Length);
-                        randomPickupDataIndex = 2; // Debug
-                        Pickup.Pickup pick = Instantiate(_pickupPrefab, cell.ThisCell.transform).GetComponent<Pickup.Pickup>();
-                        pick.SetPickupData(_pataPickups[randomPickupDataIndex]);
-                        pick.OnPicked += OnPickupPicked;
-                        _currentPickupCountInTheMaze += 1;
+                        randX = Random.Range(0, lastCellCountinRow);
+                        randY = Random.Range(0, lastCellCountinColumn);
+                        cell = MazeCellData.GetCell(_gameplayManager.MazeHead, randX, randY, lastCellCountinColumn, lastCellCountinRow);
+                        if (!cell.IsAnyPickupHere && !cell.IsAnyPlayerHere)
+                        {
+                            //randomPickupDataIndex = Random.Range(0, DataPickups.Length);
+                            randomPickupDataIndex = 2; // Debug
+                            Pickup.Pickup pick = Instantiate(_pickupPrefab, cell.ThisCell.transform).GetComponent<Pickup.Pickup>();
+                            pick.SetPickupData(_pataPickups[randomPickupDataIndex]);
+                            pick.OnPicked += OnPickupPicked;
+                            _currentPickupCountInTheMaze += 1;
+                            break;
+                        }
                     }
                 }
             }

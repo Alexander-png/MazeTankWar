@@ -59,10 +59,10 @@ namespace MazeWar.Base
             _globalManager = GlobalManager.Instance;
             GlobalManager.GameplayManager = this;
             _pickupManager.Init();
-            Initialized();
+            Initialize();
         }
 
-        private void Initialized()
+        private void Initialize()
         {
             _players = new PlayerStateObserver[_playerContainerTransfrom.childCount];
             for (int i = 0; i < _players.Length; i++)

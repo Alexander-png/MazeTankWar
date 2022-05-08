@@ -14,8 +14,8 @@ namespace MazeWar.PlayerBase.Movement
         // moving physical body in FixedUpdate.
         private void MovementLogic()
         {
-            float verticalAxisVal = _inputManager.VerticalAxis;
-            float horizontalAxisVal = _inputManager.HorizontalAxis;
+            float verticalAxisVal = InputManager.VerticalAxis;
+            float horizontalAxisVal = InputManager.HorizontalAxis;
 
             // Rotating body
             PlayerBody.angularVelocity = -RotationSpeed * horizontalAxisVal * Time.fixedDeltaTime;

@@ -344,6 +344,7 @@ MonoBehaviour:
   _playerColor: {r: 1, g: 1, b: 1, a: 1}
   _weaponMountLinker: {fileID: 6229453600599320279}
   _spriteRenderer: {fileID: 1136494374104831134}
+  _inputManager: {fileID: 3838818592034724382}
 --- !u!114 &1136494374104831130
 MonoBehaviour:
   m_ObjectHideFlags: 0

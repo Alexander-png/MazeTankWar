@@ -1,3 +1,4 @@
+using MazeWar.Input;
 using MazeWar.PlayerBase.Assistance;
 using MazeWar.PlayerBase.Weapons;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace MazeWar.PlayerBase.Observer
         private WeaponMountLinker _weaponMountLinker;
         [SerializeField]
         private SpriteRenderer _spriteRenderer;
+        [SerializeField]
+        private PlayerInputManager _inputManager;
 
         public bool IsAlive
         {

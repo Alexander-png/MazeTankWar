@@ -9,7 +9,7 @@ namespace MazeWar.PlayerBase.Movement.Base
         [SerializeField]
         protected Rigidbody2D PlayerBody;
         [SerializeField]
-        protected Input.PlayerInputManager _inputManager;
+        private Input.PlayerInputManager _inputManager;
 
         [SerializeField]
         protected float RotationSpeed;
@@ -17,5 +17,7 @@ namespace MazeWar.PlayerBase.Movement.Base
         protected float ForwardSpeed;
         [SerializeField]
         protected float BackwardSpeed;
+
+        protected Input.PlayerInputManager InputManager => _inputManager;
     }
 }

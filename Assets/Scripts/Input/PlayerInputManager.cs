@@ -11,12 +11,14 @@ namespace MazeWar.Input
 
         public float VerticalAxis { get; private set; }
         public float HorizontalAxis { get; private set; }
-        public Vector2 MousePosition { get; private set; }
+        public Vector2 MousePositionOnScreen { get; private set; }
+        public bool MouseMoved { get; private set; }
 
         private void OnEnable()
         {
             VerticalAxis = 0;
             HorizontalAxis = 0;
+            MouseMoved = false;
         }
 
         #region Input logic
@@ -37,7 +39,12 @@ namespace MazeWar.Input
 
         private void OnMousePosition(InputValue input)
         {
-            MousePosition = input.Get<Vector2>();
+            Vector2 newMousePos = input.Get<Vector2>();
+            if (MousePositionOnScreen != newMousePos)
+            {
+                MousePositionOnScreen = newMousePos;
+                MouseMoved = true;
+            }
         }
         #endregion
     }
