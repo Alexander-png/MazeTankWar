@@ -11,7 +11,7 @@ namespace MazeWar.PlayerBase.Weapons
 
         public override void Shoot(bool triggerPressed)
         {
-            if (_CanShoot)
+            if (_canShoot)
             {
                 if (triggerPressed)
                 {
@@ -39,7 +39,7 @@ namespace MazeWar.PlayerBase.Weapons
 
         public override void Reload() 
         {
-            _CanShoot = true;
+            _canShoot = true;
             _CanBeSwitched = false;
         }
 
@@ -51,7 +51,7 @@ namespace MazeWar.PlayerBase.Weapons
         private void ShellDestroyed(object sender, ShellPreDestroyEventArgs e)
         {
             _CanBeSwitched = true;
-            _CanShoot = false;
+            _canShoot = false;
             _PassedShell = null;
             OnWeaponCanBeSwitched?.Invoke(this, new WeaponSwitchEventArgs(WeaponType));
         }

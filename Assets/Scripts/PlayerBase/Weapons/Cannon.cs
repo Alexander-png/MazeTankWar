@@ -5,18 +5,23 @@ namespace MazeWar.PlayerBase.Weapons
 {
     public class Cannon : BaseWeapon
     {
+        private bool _triggerWasReleased;
+
         public override void Shoot(bool triggerPressed)
         {
-            if (triggerPressed && _CanShoot)
+            if (triggerPressed && _canShoot && _triggerWasReleased)
             {
                 Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>().OnShellPreDestroy += ShellDestroyed;
-                _CanShoot = false;
+                _canShoot = false;
+                _triggerWasReleased = false;
             }
+            if (!triggerPressed)
+                _triggerWasReleased = true;
         }
 
         private void ShellDestroyed(object sender, ShellPreDestroyEventArgs e)
         {
-            _CanShoot = true;
+            _canShoot = true;
         }
     }
 }

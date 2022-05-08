@@ -19,7 +19,7 @@ namespace MazeWar.PlayerBase.Weapons.Base
 
         public EventHandler<WeaponSwitchEventArgs> OnWeaponCanBeSwitched { get; set; }
 
-        protected bool _CanShoot = true;
+        protected bool _canShoot = true;
 
         public virtual void Shoot(bool triggerPressed)
         {
