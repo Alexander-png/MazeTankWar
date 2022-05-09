@@ -15,7 +15,7 @@ namespace MazeWar.PlayerBase.Weapons
         [SerializeField]
         private float _spread;
 
-        private int _shellsCount;
+        private int _shellCount;
         private bool _isShooting;
         private bool _shootCancelled;
         private Coroutine _shootCoroutine;
@@ -50,25 +50,25 @@ namespace MazeWar.PlayerBase.Weapons
             }
             _isShooting = false;
             _shootCancelled = false;
-            _shellsCount = _magazineCapacity;
+            _shellCount = _magazineCapacity;
         }
 
         public override bool CanBeSwitchedNow()
         {
-            return !_isShooting && _magazineCapacity != _shellsCount || _shootCancelled;
+            return !_isShooting && _magazineCapacity != _shellCount || _shootCancelled;
         }
 
         private IEnumerator ShootCoroutine()
         {
             _isShooting = true;
             yield return new WaitForSeconds(_warmUpTime);
-            while (_shellsCount > 0)
+            while (_shellCount > 0)
             {
                 yield return new WaitForSeconds(((1000 * 60) / _fireRate) / 1000);
                 Vector3 shellSpawnPointRotation = ShellSpawnPoint.transform.rotation.eulerAngles;
                 shellSpawnPointRotation.z += Random.Range(-_spread, _spread);
                 Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, Quaternion.Euler(shellSpawnPointRotation));
-                _shellsCount -= 1;
+                _shellCount -= 1;
             }
             _isShooting = false;
             OnWeaponCanBeSwitched?.Invoke(this, new WeaponSwitchEventArgs(WeaponType));
