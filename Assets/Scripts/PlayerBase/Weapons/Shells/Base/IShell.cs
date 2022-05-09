@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MazeWar.PlayerBase.Weapons.Shells
+namespace MazeWar.PlayerBase.Weapons.Shells.Base
 {
     public class ShellPreDestroyEventArgs : EventArgs
     {

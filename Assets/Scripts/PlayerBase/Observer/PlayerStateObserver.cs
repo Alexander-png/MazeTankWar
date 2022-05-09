@@ -1,6 +1,6 @@
 using MazeWar.Input;
 using MazeWar.PlayerBase.Assistance;
-using MazeWar.PlayerBase.Weapons;
+using MazeWar.PlayerBase.Weapons.Base;
 using UnityEngine;
 
 namespace MazeWar.PlayerBase.Observer

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace MazeWar.PlayerBase.Weapons
+namespace MazeWar.PlayerBase.Weapons.Base
 {
     public enum WeaponTypes { Cannon = 0, MachineGun = 1, ShotGun = 2, Explosive = 3, Missle = 4, Laser = 5 }
 

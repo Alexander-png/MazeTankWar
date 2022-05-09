@@ -1,4 +1,4 @@
-using MazeWar.PlayerBase.Weapons;
+using MazeWar.PlayerBase.Weapons.Base;
 using UnityEngine;
 
 //https://habr.com/ru/post/421523/

@@ -71,7 +71,8 @@ namespace MazeWar.Base
                         if (!cell.IsAnyPickupHere && !cell.IsAnyPlayerHere)
                         {
                             //randomPickupDataIndex = Random.Range(0, DataPickups.Length);
-                            randomPickupDataIndex = 2; // Debug
+                            randomPickupDataIndex = 0; // Debug machine gun
+                            //randomPickupDataIndex = 2; // Debug explosive 
                             Pickup.Pickup pick = Instantiate(_pickupPrefab, cell.ThisCell.transform).GetComponent<Pickup.Pickup>();
                             pick.SetPickupData(_pataPickups[randomPickupDataIndex]);
                             pick.OnPicked += OnPickupPicked;

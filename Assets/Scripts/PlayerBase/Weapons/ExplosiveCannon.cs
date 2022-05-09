@@ -1,13 +1,13 @@
 using MazeWar.PlayerBase.Weapons.Base;
-using MazeWar.PlayerBase.Weapons.Shells;
+using MazeWar.PlayerBase.Weapons.Shells.Base;
 
 namespace MazeWar.PlayerBase.Weapons
 {
     public class ExplosiveCannon : BaseWeapon
     {
-        private bool _CanShootAgain = false;
-        private bool _CanBeSwitched = false;
-        private IShell _PassedShell;
+        private bool _canShootAgain = false;
+        private bool _canBeSwitched = false;
+        private IShell _passedShell;
 
         public override void Shoot(bool triggerPressed)
         {
@@ -16,43 +16,43 @@ namespace MazeWar.PlayerBase.Weapons
                 if (triggerPressed)
                 {
                     // If firing first time, just create explosive shell
-                    if (_PassedShell == null)
+                    if (_passedShell == null)
                     {
-                        _PassedShell = Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>();
-                        _PassedShell.OnShellPreDestroy += ShellDestroyed;
-                        _CanShootAgain = false;
+                        _passedShell = Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>();
+                        _passedShell.OnShellPreDestroy += ShellDestroyed;
+                        _canShootAgain = false;
                     }
                     // Else explode it
-                    else if (_CanShootAgain)
-                        _PassedShell.OnWeaponShoot();
+                    else if (_canShootAgain)
+                        _passedShell.OnWeaponShoot();
                 }
                 else
-                    _CanShootAgain = true;
+                    _canShootAgain = true;
             }
         }
 
         private void OnDisable()
         {
-            if (_PassedShell != null)
-                _PassedShell.OnWeaponShoot();
+            if (_passedShell != null)
+                _passedShell.OnWeaponShoot();
         }
 
         public override void Reload() 
         {
             _canShoot = true;
-            _CanBeSwitched = false;
+            _canBeSwitched = false;
         }
 
         public override bool CanBeSwitchedNow()
         {
-            return _CanBeSwitched;
+            return _canBeSwitched;
         }
 
         private void ShellDestroyed(object sender, ShellPreDestroyEventArgs e)
         {
-            _CanBeSwitched = true;
+            _canBeSwitched = true;
             _canShoot = false;
-            _PassedShell = null;
+            _passedShell = null;
             OnWeaponCanBeSwitched?.Invoke(this, new WeaponSwitchEventArgs(WeaponType));
         }
     }

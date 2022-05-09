@@ -13,9 +13,7 @@ namespace MazeWar.PlayerBase.Weapons.Base
         protected WeaponTypes _WeaponType;
         public WeaponTypes WeaponType => _WeaponType;
 
-        [SerializeField]
-        protected GameObject _ThisObject;
-        public GameObject ThisObject => _ThisObject;
+        public GameObject ThisObject => gameObject;
 
         public EventHandler<WeaponSwitchEventArgs> OnWeaponCanBeSwitched { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿using MazeWar.PlayerBase.Weapons.Base;
-using MazeWar.PlayerBase.Weapons.Shells;
+using MazeWar.PlayerBase.Weapons.Shells.Base;
 
 namespace MazeWar.PlayerBase.Weapons
 {
