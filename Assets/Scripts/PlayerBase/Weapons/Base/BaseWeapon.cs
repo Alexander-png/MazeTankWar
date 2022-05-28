@@ -11,10 +11,10 @@ namespace MazeWar.PlayerBase.Weapons.Base
         protected GameObject ShellSpawnPoint;
         [SerializeField]
         protected WeaponTypes _WeaponType;
+
+        public Color BulletColor { get; set; }
         public WeaponTypes WeaponType => _WeaponType;
-
         public GameObject ThisObject => gameObject;
-
         public EventHandler<WeaponSwitchEventArgs> OnWeaponCanBeSwitched { get; set; }
 
         protected bool _canShoot = true;

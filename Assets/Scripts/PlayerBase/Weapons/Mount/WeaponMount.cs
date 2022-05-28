@@ -10,6 +10,14 @@ namespace MazeWar.PlayerBase.Weapons.Mount
     {
         private Dictionary<WeaponTypes, IWeapon> WeaponDict = new Dictionary<WeaponTypes, IWeapon>();
         private IWeapon CurrentWeapon;
+        public Color PlayerColor
+        {
+            set
+            {
+                foreach (var pair in WeaponDict)
+                    pair.Value.BulletColor = value;
+            }
+        }
         public bool ShootButtonPressed;
 
         [SerializeField]
@@ -72,9 +80,9 @@ namespace MazeWar.PlayerBase.Weapons.Mount
                 SetCurrentWeapon(DefaultWeapon);
         }
 
-        public bool SetCurrentWeapon(WeaponTypes wType, bool forced = false)
+        public bool SetCurrentWeapon(WeaponTypes wType, bool forceSwitch = false)
         {
-            if (CurrentWeapon.CanBeSwitchedNow() || forced)
+            if (CurrentWeapon.CanBeSwitchedNow() || forceSwitch)
             {
                 CurrentWeapon.ThisObject.SetActive(false);
                 CurrentWeapon = WeaponDict[wType];

@@ -44,6 +44,10 @@ namespace MazeWar.Base
             }
         }
 
+        // todo:
+        // missle
+        // sprites
+
         public override PlayerStateObserver[] Players
         {
             get

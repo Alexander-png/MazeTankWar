@@ -44,6 +44,7 @@ namespace MazeWar.PlayerBase.Observer
         private void Start()
         {
             _spriteRenderer.color = PlayerColor;
+            _weaponMountLinker.WeaponMount.PlayerColor = PlayerColor;
         }
 
         public bool SetWeapon(WeaponTypes wType)

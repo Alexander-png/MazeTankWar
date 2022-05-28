@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace MazeWar.PlayerBase.Weapons.Shells.Base
 {
@@ -14,8 +15,9 @@ namespace MazeWar.PlayerBase.Weapons.Shells.Base
 
     public interface IShell
     {
-        float LifeTime { get; }
-        EventHandler<ShellPreDestroyEventArgs> OnShellPreDestroy { get; set; }
+        public float LifeTime { get; }
+        public Color ShellColor { get; set; }
+        public EventHandler<ShellPreDestroyEventArgs> OnShellPreDestroy { get; set; }
         public void OnWeaponShoot(); 
     }
 }

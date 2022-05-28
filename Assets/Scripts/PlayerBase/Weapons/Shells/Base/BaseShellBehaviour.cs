@@ -21,6 +21,7 @@ namespace MazeWar.PlayerBase.Weapons.Shells.Base
         protected float _LifeTime = 10f;
         public float LifeTime => _LifeTime;
 
+        public virtual Color ShellColor { get; set; }
         public EventHandler<ShellPreDestroyEventArgs> OnShellPreDestroy { get; set; }
 
         protected virtual void Awake()
