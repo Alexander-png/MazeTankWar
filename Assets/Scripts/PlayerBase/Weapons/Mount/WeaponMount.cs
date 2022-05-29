@@ -15,7 +15,7 @@ namespace MazeWar.PlayerBase.Weapons.Mount
             set
             {
                 foreach (var pair in WeaponDict)
-                    pair.Value.BulletColor = value;
+                    pair.Value.PassingShellColor = value;
             }
         }
         public bool ShootButtonPressed;

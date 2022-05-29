@@ -19,7 +19,7 @@ namespace MazeWar.PlayerBase.Weapons.Base
     { 
         public WeaponTypes WeaponType { get; }
         public GameObject ThisObject { get; }
-        public Color BulletColor { get; set; }
+        public Color PassingShellColor { get; set; }
         public void Shoot(bool triggerPressed);
         public void Reload();
         public bool CanBeSwitchedNow();

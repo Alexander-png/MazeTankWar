@@ -3,28 +3,28 @@ using MazeWar.PlayerBase.Weapons.Shells.Base;
 
 namespace MazeWar.PlayerBase.Weapons
 {
-    public class Laser : BaseWeapon
+    public class MissleLauncher : BaseWeapon
     {
         private bool _canBeSwitched = false;
-        private IShell _passedLaser;
+        private IShell _passedMissle;
 
         public override void Shoot(bool triggerPressed)
         {
             if (triggerPressed && _canShoot)
             {
-                _passedLaser = Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>();
-                _passedLaser.ShellColor = PassingShellColor;
-                _passedLaser.OnShellPreDestroy += LaserDestroyed;
+                _passedMissle = Instantiate(ShellPrefab, ShellSpawnPoint.transform.position, ShellSpawnPoint.transform.rotation).GetComponent<IShell>();
+                _passedMissle.ShellColor = PassingShellColor;
+                _passedMissle.OnShellPreDestroy += MissleDestroyed;
                 _canShoot = false;
             }
         }
 
-        private void LaserDestroyed(object sender, ShellPreDestroyEventArgs e)
+        private void MissleDestroyed(object sender, ShellPreDestroyEventArgs e)
         {
             _canBeSwitched = true;
-            if (_passedLaser != null)
-                _passedLaser.OnShellPreDestroy -= LaserDestroyed;
-            _passedLaser = null;
+            if (_passedMissle != null)
+                _passedMissle.OnShellPreDestroy -= MissleDestroyed;
+            _passedMissle = null;
             OnWeaponCanBeSwitched?.Invoke(this, new WeaponSwitchEventArgs(WeaponType));
         }
 

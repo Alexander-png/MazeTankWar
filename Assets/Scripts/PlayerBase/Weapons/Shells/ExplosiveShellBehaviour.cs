@@ -12,11 +12,6 @@ namespace MazeWar.PlayerBase.Weapons.Shells
         [SerializeField]
         private int FragmentCount;
 
-        protected override void OnRoundRestart()
-        {
-            DoActionsAndDestroySelf(false);
-        }
-
         protected override void DoActionsAndDestroySelf(bool onCollisionWithPlayer)
         {
             if (onCollisionWithPlayer || IsInGame())
